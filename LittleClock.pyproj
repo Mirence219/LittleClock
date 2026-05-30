@@ -21,12 +21,41 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="control\logger.py" />
+    <Compile Include="control\renderer\abstract_renderer.py" />
+    <Compile Include="control\renderer\__init__.py" />
+    <Compile Include="control\signal_bus.py" />
+    <Compile Include="control\time_manager\abstract_time_manager.py" />
+    <Compile Include="control\controller.py" />
+    <Compile Include="control\controller_mediater.py" />
+    <Compile Include="control\signal.py" />
+    <Compile Include="control\renderer\digital_tube.py" />
+    <Compile Include="control\render_meta_data.py" />
+    <Compile Include="control\time_manager\system_time.py" />
+    <Compile Include="control\time_manager\__init__.py" />
+    <Compile Include="control\__init__.py" />
+    <Compile Include="view\logger.py" />
+    <Compile Include="view\main_window.py" />
+    <Compile Include="view\__init__.py" />
+    <Compile Include="__version__.py" />
+    <Compile Include="view\signal_bus.py" />
+    <Compile Include="view\timeboard.py" />
+    <Compile Include="view\ui_adapter.py" />
+    <Compile Include="view\viewer.py" />
+    <Compile Include="view\signal.py" />
     <Compile Include="__main__.py" />
     <Compile Include="littleclock.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="control\" />
+    <Folder Include="control\renderer\" />
+    <Folder Include="control\time_manager\" />
     <Folder Include="view\" />
+    <Folder Include="view\py_ui\" />
+    <Folder Include="view\qt_ui\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="View\qt_ui\main_window.ui" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -11,12 +11,42 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>LittleClock</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgba(80, 80, 80, 160);
+border-radius: 10px;
+color: white</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="lbTitle">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 700 12pt &quot;Microsoft YaHei UI&quot;;
+padding-left:1
+0px;
+</string>
+        </property>
+        <property name="text">
+         <string>LittleClock</string>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -73,17 +103,15 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QWidget {
-    border: 1px solid #666; 
-	border-radius: 8px;
-}</string>
+         <string notr="true">border: 1px solid #666; 
+border-radius: 8px;</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0">
       <property name="leftMargin">
        <number>0</number>
       </property>

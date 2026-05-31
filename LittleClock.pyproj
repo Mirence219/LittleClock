@@ -36,6 +36,9 @@
     <Compile Include="control\__init__.py" />
     <Compile Include="view\logger.py" />
     <Compile Include="view\main_window.py" />
+    <Compile Include="ui2py.py" />
+    <Compile Include="View\py_ui\ui_main_window.py" />
+    <Compile Include="view\py_ui\__init__.py" />
     <Compile Include="view\__init__.py" />
     <Compile Include="__version__.py" />
     <Compile Include="view\signal_bus.py" />

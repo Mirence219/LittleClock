@@ -102,6 +102,12 @@ padding-left:1
           <height>100</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>150</height>
+         </size>
+        </property>
         <property name="styleSheet">
          <string notr="true">border: 1px solid #666; 
 border-radius: 8px;</string>
@@ -123,7 +129,7 @@ border-radius: 8px;</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>0</height>
+          <height>25</height>
          </size>
         </property>
         <property name="text">
@@ -133,6 +139,12 @@ border-radius: 8px;</string>
       </item>
       <item row="0" column="1">
        <widget class="QPushButton" name="bnt2">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="text">
          <string>按键2</string>
         </property>
@@ -146,6 +158,12 @@ border-radius: 8px;</string>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="text">
          <string>按键1</string>
         </property>
@@ -153,6 +171,12 @@ border-radius: 8px;</string>
       </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="bnt4">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="text">
          <string>按键4</string>
         </property>

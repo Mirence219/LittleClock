@@ -78,6 +78,7 @@ class Ui_MainWindow(object):
         self.wgtTimeboard = QWidget(self.centralwidget)
         self.wgtTimeboard.setObjectName(u"wgtTimeboard")
         self.wgtTimeboard.setMinimumSize(QSize(0, 100))
+        self.wgtTimeboard.setMaximumSize(QSize(16777215, 150))
         self.wgtTimeboard.setStyleSheet(u"border: 1px solid #666; \n"
 "border-radius: 8px;")
 
@@ -91,12 +92,13 @@ class Ui_MainWindow(object):
         self.gridLayout.setContentsMargins(0, -1, 0, -1)
         self.bnt3 = QPushButton(self.centralwidget)
         self.bnt3.setObjectName(u"bnt3")
-        self.bnt3.setMinimumSize(QSize(0, 0))
+        self.bnt3.setMinimumSize(QSize(0, 25))
 
         self.gridLayout.addWidget(self.bnt3, 0, 2, 1, 1)
 
         self.bnt2 = QPushButton(self.centralwidget)
         self.bnt2.setObjectName(u"bnt2")
+        self.bnt2.setMinimumSize(QSize(0, 25))
 
         self.gridLayout.addWidget(self.bnt2, 0, 1, 1, 1)
 
@@ -107,11 +109,13 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.bnt1.sizePolicy().hasHeightForWidth())
         self.bnt1.setSizePolicy(sizePolicy)
+        self.bnt1.setMinimumSize(QSize(0, 25))
 
         self.gridLayout.addWidget(self.bnt1, 0, 0, 1, 1)
 
         self.bnt4 = QPushButton(self.centralwidget)
         self.bnt4.setObjectName(u"bnt4")
+        self.bnt4.setMinimumSize(QSize(0, 25))
 
         self.gridLayout.addWidget(self.bnt4, 1, 0, 1, 1)
 
@@ -121,6 +125,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.bntClose.destroyed.connect(MainWindow.close)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi

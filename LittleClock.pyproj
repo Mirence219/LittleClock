@@ -58,6 +58,7 @@
     <Folder Include="view\qt_ui\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LittleClock UML.png" />
     <Content Include="View\qt_ui\main_window.ui" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

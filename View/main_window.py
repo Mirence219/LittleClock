@@ -28,7 +28,7 @@ class MainWindowManager():
         '''启动窗口'''
         self.window.show()
 
-    def send(self, signal:str, data:str):
+    def send(self, signal:str, data):
         '''发送信号'''
         self.signal_sender.send(signal, data)
 

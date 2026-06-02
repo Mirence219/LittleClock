@@ -42,17 +42,11 @@ class SystemTimeManager(AbstractTimeManager):
 
 if __name__ == "__main__":
     app = QCoreApplication(sys.argv)
-    time_manager = SystemTimeManager()
+    time_manager = SystemTimeManager()    
 
-    # 信号驱动同行刷新，替代死循环
     def console_print(t_str: str):
         print(f"\r{t_str}", end="")
 
-    # 绑定信号，实时打印
     time_manager._time.time_update.connect(console_print)
-
-    # 退出时安全关闭线程
     app.aboutToQuit.connect(lambda: time_manager._time_thread.quit())
-
-    # 启动Qt事件循环
     sys.exit(app.exec())

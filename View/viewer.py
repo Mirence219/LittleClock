@@ -24,10 +24,10 @@ class Viewer():
         self.main_window_manager.show()
         sys.exit(self.app.exec())
 
-    def connect_signal(self, func:callable):
+    def connect_signal(self, func):
         '''添加前端信号发送器的订阅者（接收者）'''
         self.signal_sender.connect(func)
 
-    def receive(self, signal:str, data:str):
+    def receive(self, signal:str, data):
         '''接受来自前端信号接收器的转发信号'''
         print(f"[DEBUG]前端主控接收到转发 信号:{signal}, 内容:{data}")

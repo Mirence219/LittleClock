@@ -95,7 +95,7 @@ padding-left:1
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QWidget" name="wgtTimeboard" native="true">
+       <widget class="Timeboard" name="wgtTimeboard" native="true">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -187,6 +187,14 @@ border-radius: 8px;</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Timeboard</class>
+   <extends>QWidget</extends>
+   <header>view.timeboard</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

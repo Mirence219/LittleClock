@@ -2,22 +2,34 @@ from PySide6.QtWidgets import QMainWindow
 from PySide6.QtCore import Qt
 
 from view.py_ui.ui_main_window import Ui_MainWindow
+from view.timeboard import TimeboardManager
 
 class MainWindowManager():
     '''主窗口对象管理器'''
     def __init__(self, signal_sender):
         self.signal_sender = signal_sender
+        self._init_main_window()
+        self._init_timeboard()
+        self._connect_init()
 
+
+    def _init_main_window(self):
+        '''初始化主窗口'''
         self.window = QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.window)
 
-        self.window.setWindowFlags(Qt.FramelessWindowHint)
-        self.window.setAttribute(Qt.WA_TranslucentBackground)
+        self.window.setWindowFlags(Qt.FramelessWindowHint)      #去掉窗口上方标题栏
+        self.window.setAttribute(Qt.WA_TranslucentBackground)   #设置透明窗口
 
-        self._connect_init()
+
+    def _init_timeboard(self):
+        '''初始化时间面板管理器'''
+        self.timeboard = TimeboardManager(self.ui.wgtTimeboard)
+
 
     def _connect_init(self):
+        '''绑定按键事件'''
         self.ui.bntClose.clicked.connect(self.on_bntClose_clicked)
         self.ui.bnt1.clicked.connect(self.on_bnt1_clicked)
         self.ui.bnt2.clicked.connect(self.on_bnt2_clicked)

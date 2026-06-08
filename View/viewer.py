@@ -1,3 +1,4 @@
+from typing import Any
 from PySide6.QtWidgets import QApplication
 import sys
 
@@ -28,6 +29,12 @@ class Viewer():
         '''添加前端信号发送器的订阅者（接收者）'''
         self.signal_sender.connect(func)
 
-    def receive(self, signal:str, data):
+    def receive(self, signal:str, data:Any):
         '''接受来自前端信号接收器的转发信号'''
-        print(f"[DEBUG]前端主控接收到转发 信号:{signal}, 内容:{data}")
+        print(f"[INFO]前端主控接收到转发 信号:{signal}, 内容:{data}")
+        if signal == "time_update":
+            self.update_time(data)
+
+    def update_time(self, render_data:list):
+        '''设置时间面板'''
+        self.main_window_manager.timeboard.set_time(render_data)

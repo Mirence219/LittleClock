@@ -19,6 +19,8 @@ from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
 
+from view.timeboard import Timeboard
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -75,7 +77,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.wgtTimeboard = QWidget(self.centralwidget)
+        self.wgtTimeboard = Timeboard(self.centralwidget)
         self.wgtTimeboard.setObjectName(u"wgtTimeboard")
         self.wgtTimeboard.setMinimumSize(QSize(0, 100))
         self.wgtTimeboard.setMaximumSize(QSize(16777215, 150))
@@ -125,7 +127,6 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.bntClose.destroyed.connect(MainWindow.close)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi

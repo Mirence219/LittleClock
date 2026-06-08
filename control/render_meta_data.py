@@ -1,14 +1,24 @@
 from control.renderer.digital_tube import DigitalTubeRenderer
+from control.signal_bus import ControllerSignalBus
 
 class RenderMetaData:
     '''渲染元数据管理器'''
-    def __init__(self, send_signal_func):
-        self.send_signal = send_signal_func #借助后端主控向前端通信
+    def __init__(self):
+        self._init_signal()
 
         self._meta_data = []        #返回的元数据列表组成[mode:str, patch:bool,meta1:dict, meta2:dict, ...]
         self._last_meta_data = []
         self._renderer_tuple = (DigitalTubeRenderer(), )
         self.select_render_mode("digital_tube")
+
+    def _init_signal(self):
+        '''初始化通信'''
+        self.signal_bus = ControllerSignalBus()
+        self.receive_channel = "render_time"   #接收频道
+        self.send_channel = "to_view"       #发送频道
+        self.send_signal_name = "time_update"
+        self.signal_bus.join_receiver(self.on_receive_time_str, self.receive_channel)   
+        self.signal_bus.join_sender(self.get_data_signal, self.send_channel)
 
     def select_render_mode(self, mode:str):
         '''选择渲染器模式'''
@@ -18,13 +28,13 @@ class RenderMetaData:
             self._mode = self._renderer.mode
             self._first_render = True   #每次切换模式都需要改为True
 
-    def render(self, time_str:str) -> list | None:
+    def _render(self, time_str:str) -> list | None:
         '''交由渲染器逐个渲染字符,并返回元数据列表'''
         if self._first_render:
             self._first_render = False
         meta_list = [self._mode, self._patch and not self._first_render]
         for i in range(len(time_str)):
-            meta_list.append(self._renderer.render(time_str[i]))
+            meta_list.append(self._renderer.render(time_str[i]).copy()) #copy拷贝，否则返回的只是引用
         self._last_meta_data = self._meta_data.copy()
         self._meta_data = meta_list.copy()
 
@@ -51,8 +61,16 @@ class RenderMetaData:
 
         return None
             
-    def on_receive(self, time_str:str):
-        '''直接接收来自时间管理器的时间字符串，并发送给前端'''
-        data = self.render(time_str)
-        if data:
-            self.send_signal("rendered_time", data) #向前端发送信号："rendered_time"，内容为元数据
+    def on_receive_time_str(self, signal, time_str:str):
+        '''接收来自时间管理器的时间字符串并获取元数据,随后发送'''
+        if signal == "render_time":
+            self._meta_data = self._render(time_str)
+            self.send_data()
+
+    def get_data_signal(self):
+        '''返回渲染元数据信号（用于通信总线发送方）'''
+        return self.send_signal_name ,self._meta_data
+
+    def send_data(self):
+        '''向前端发送渲染元数据'''
+        self.signal_bus.send_signal(self.get_data_signal, self.send_channel)

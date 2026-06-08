@@ -1,3 +1,5 @@
+from typing import Callable
+
 from PySide6.QtCore import QTime, QObject, QThread, QTimer, Slot, Signal
 
 #时间对象刷新间隔(ms)
@@ -7,7 +9,7 @@ class AbstractTime(QObject):
     '''时间对象接口
     接口具体用法：仅需重写_init_time()、_reflesh()和_get_time_str()'''
 
-    time_update = Signal(str)   #时间刷新信号
+    time_update_signal = Signal(str)   #时间刷新信号
 
     def __init__(self):
         super().__init__()
@@ -56,9 +58,11 @@ class AbstractTime(QObject):
 class AbstractTimeManager:
     '''时间管理器接口'''
 
-    def __init__(self):
+    def __init__(self, callback:Callable):
         self._last_time = "on content"    #最新获取的时间字符串
         self._init_time()
+        self.work = False   #是否工作
+        self.send_time = callback   #调用中介者的回调函数向前端发送信号
 
     def _init_time(self):
         '''初始化时间对象
@@ -75,10 +79,13 @@ class AbstractTimeManager:
 
     @Slot(str)
     def _on_received(self, time_str: str):
-        '''接受来自时间对象的字符串输出'''
+        '''接受来自时间对象的字符串输出刷新，并向前端推送'''
         self._last_time = time_str
+        if self.work:
+            self.send_time(self._get_time())
 
-    def get_time(self) -> str:
+
+    def _get_time(self) -> str:
         '''返回时间的字符串输出'''
         return self._last_time
 

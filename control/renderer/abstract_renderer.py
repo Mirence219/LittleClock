@@ -11,7 +11,7 @@ class AbstractRenderer:
         raise NotImplementedError(f"AbstractRenderer子类{self.__class__.__name__}未实现 _init_meta()")
 
     def render(self, input_str:str) -> dict:
-        '''返回字符的渲染元数据'''
+        '''返回字符的渲染元数据（字典）'''
         raise NotImplementedError(f"AbstractRenderer子类{self.__class__.__name__}未实现 render()")
 
     def meta_patch(self, old_meta:dict, new_meta:dict) -> tuple:

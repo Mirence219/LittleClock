@@ -20,12 +20,14 @@ class ControllerSignalBus():
     def join_sender(self, send_func:Callable, channel_name:str):
         '''作为发送者加入频段（若频段不存在则会创建）'''
         if not self._if_channel_live(channel_name):
-            self.signal_channel.update({channel_name: {"sender": [],"receiver": []}})
+            self._create_channel(channel_name)
 
         if self._if_send_func_live(send_func, channel_name):
             raise ValueError(f"'{send_func.__name__}'试图作为发送者重复加入频段'{channel_name}'")
 
+        print(f"[INFO]创建频段'{channel_name}")
         self.signal_channel[channel_name]["sender"].append(send_func)
+        print(f"[INFO]频段'{channel_name}'添加成员'{send_func.__name__}'")
 
 
     def leave_sender(self, send_func:Callable, channel_name:str):
@@ -36,16 +38,18 @@ class ControllerSignalBus():
             raise ValueError(f"'{send_func.__name__}'试图作为发送者退出尚未加入的频段'{channel_name}'")
 
         self.signal_channel[channel_name]["sender"].remove(send_func)
-
+        print(f"[INFO]频段'{channel_name}'删除成员'{send_func.__name__}'")
 
     def join_receiver(self, receive_func:Callable, channel_name:str):
-        '''作为接收者加入频段（若频段不存在则会抛出异常）'''
-        self._if_channel_live(channel_name, False)
-
+        '''作为接收者加入频段（若频段不存在则会创建）'''
+        if not self._if_channel_live(channel_name):
+            self._create_channel(channel_name)
         if self._if_receive_func_live(receive_func, channel_name):
             raise ValueError(f"'{receive_func.__name__}'试图作为接收者重复加入频段'{channel_name}'")
 
+        print(f"[INFO]创建频段'{channel_name}")
         self.signal_channel[channel_name]["receiver"].append(receive_func)
+        print(f"[INFO]频段'{channel_name}'添加成员'{receive_func.__name__}'")
 
 
     def leave_receiver(self, receive_func:Callable, channel_name:str):
@@ -56,6 +60,7 @@ class ControllerSignalBus():
             raise ValueError(f"'{receive_func.__name__}'试图作为接收者退出尚未加入的频段'{channel_name}'")
 
         self.signal_channel[channel_name]["receiver"].remove(receive_func)
+        print(f"[INFO]频段'{channel_name}'删除成员'{receive_func.__name__}'")
 
 
     def send_signal(self, send_func:Callable, channel_name:str):
@@ -68,6 +73,10 @@ class ControllerSignalBus():
         signal, data = send_func()
         for receive_func in self.signal_channel[channel_name]["receiver"]:
             receive_func(signal, data)
+
+    def _create_channel(self, channel_name):
+        '''创建新频段'''
+        self.signal_channel.update({channel_name: {"sender": [],"receiver": []}})
 
     def _if_channel_live(self, channel_name:str, mode=True) -> bool:    #True（默认）- 布尔模式，False- 报错模式
         '''判断频段是否存在'''
@@ -95,13 +104,10 @@ if __name__ == "__main__":
         data = "aaaaa!"
         return signal, data
 
-    def send2():
-        pass
-
     def receive1(signal, data):
         print(f"信号{signal}, 内容{data}")
 
-    bus.join_sender(send1, "频道1")
+    bus.join_sender(send1, "频道2")
     bus2.join_receiver(receive1, "频道1")
     bus2.send_signal(send1, "频道1")
         

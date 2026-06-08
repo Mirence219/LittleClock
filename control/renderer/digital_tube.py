@@ -19,29 +19,22 @@ class DigitalTubeRenderer(AbstractRenderer):
         ":":{9}
     }
 
+
     def _init_meta(self):
         self._meta.update({
             "pos": set(),
-            "type":""       #number | colon | port
+            #"type":""       #number | colon | port
             })
         self._mode = "digital"
 
+
     def render(self, input_str) -> dict:
-        if input_str.isdigit(): #数字
-            self.meta["type"] = "number"
-
-        elif input_str == ":":  #冒号
-            self.meta["type"] = "colon"
-
-        elif input_str == ".":  #点
-            self.meta["type"] = "port"
-
-        else:
+        if input_str not in self.DIGITAL_TUBE_DIC: 
             raise ValueError("无法渲染非法的字符")
 
-        self.meta["pos"] = self.DIGITAL_TUBE_DIC[input_str]
+        self._meta["pos"] = self.DIGITAL_TUBE_DIC[input_str]
 
-        return self.meta
+        return self._meta
 
     def meta_patch(self, old_meta:dict, new_meta:dict) -> tuple | None:
         add_meta =  new_meta["pos"] - old_meta["pos"]   #通过差集运算快速得出变化的数码管位置

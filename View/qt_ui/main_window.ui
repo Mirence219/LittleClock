@@ -109,7 +109,7 @@ padding-left:1
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 1px solid #666; 
+         <string notr="true">border: 2px solid #666; 
 border-radius: 8px;</string>
         </property>
        </widget>

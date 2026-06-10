@@ -2,6 +2,7 @@ from typing import Any
 from PySide6.QtWidgets import QApplication
 import sys
 
+from logger import Logger
 from view.main_window import MainWindowManager
 from view.signal import ViewerSignalReceiver, ViewerSignalSender
 
@@ -31,8 +32,8 @@ class Viewer():
 
     def receive(self, signal:str, data:Any):
         '''接受来自前端信号接收器的转发信号'''
-        print(f"[INFO]前端主控接收到转发 信号:{signal}, 内容:{data}")
         if signal == "time_update":
+            Logger.debug("前端主控接收到转发 信号:{}, 内容:{}", signal, data)
             self.update_time(data)
 
     def update_time(self, render_data:list):

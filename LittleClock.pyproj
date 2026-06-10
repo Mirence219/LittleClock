@@ -11,6 +11,9 @@
     <OutputPath>.</OutputPath>
     <Name>LittleClock</Name>
     <RootNamespace>LittleClock</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <Environment>debug=true</Environment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +24,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="control\logger.py" />
     <Compile Include="control\renderer\abstract_renderer.py" />
     <Compile Include="control\renderer\__init__.py" />
     <Compile Include="control\signal_bus.py" />
@@ -34,7 +36,7 @@
     <Compile Include="control\time_manager\system_time.py" />
     <Compile Include="control\time_manager\__init__.py" />
     <Compile Include="control\__init__.py" />
-    <Compile Include="view\logger.py" />
+    <Compile Include="logger.py" />
     <Compile Include="view\main_window.py" />
     <Compile Include="ui2py.py" />
     <Compile Include="View\py_ui\ui_main_window.py" />

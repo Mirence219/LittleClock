@@ -1,5 +1,6 @@
 from PySide6.QtCore import QThread, QObject, Signal
 
+from logger import Logger
 from control.signal import ControllerSignalReceiver, ControllerSignalSender
 from control.controller_mediater import ControllerMediater
 from control.render_meta_data import RenderMetaData
@@ -43,7 +44,7 @@ class Controller(QObject):
 
     def receive(self, signal:str, data):
         '''接收来自后端信号接收器转发的信号'''
-        print(f"[INFO]后端主控接收到转发 信号:{signal}, 内容:{data}")
+        Logger.info("后端主控接收到转发 信号:{}, 内容:{}", signal, data)
 
     def send_signal(self, signal:str, data):
         '''借助后端信号发送器发送信号'''

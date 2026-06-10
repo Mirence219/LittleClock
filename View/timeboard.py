@@ -1,6 +1,8 @@
 from PySide6.QtGui import QColor, QPainter, QPen, Qt
 from PySide6.QtWidgets import QWidget
 
+from logger import Logger
+
 
 class TimeboardManager:
     '''时间面板对象管理器'''
@@ -10,7 +12,6 @@ class TimeboardManager:
     def _update(self):
         '''刷新时间面板'''
         self.paint.update()
-        print("已刷新")
 
     def set_time(self, render_data:list):
         '''修改渲染元数据并刷新时间'''
@@ -46,12 +47,10 @@ class Timeboard(QWidget):
         self._mode = render_data[0]
         self._full = render_data[1]
         self._render_data = render_data[2:]
-        print(f"[INFO]渲染元数据已修改为{self._render_data}")
 
 
     def paintEvent(self, event):
         '''设置画板逻辑'''
-        print("[INFO]已渲染")
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing, True)  #启用抗锯齿
         painter.fillRect(self.rect(), self.bg_style)

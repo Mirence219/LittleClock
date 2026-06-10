@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtCore import Qt
 
+from logger import Logger
 from view.py_ui.ui_main_window import Ui_MainWindow
 from view.timeboard import TimeboardManager
 
@@ -46,28 +47,35 @@ class MainWindowManager():
 
     def on_bntClose_clicked(self):
         '''关闭窗口'''
-        print("[DEBUG]点击关闭窗口")
+        Logger.info("点击关闭窗口")
         self.window.close()
+
+    def on_MainWindow_clicked(self):
+        '''点击主窗口（拖拽）'''
+        Logger.info("点击主窗口")
+
 
     def on_bnt1_clicked(self):
         '''按钮1点击事件'''
-        print("[DEBUG]按钮1被点击")
-        self.send("按钮1", "被点击")
+        Logger.info("点击按钮1")
+        self.send("按钮1", None)
 
     def on_bnt2_clicked(self):
         '''按钮2点击事件'''
-        print("[DEBUG]按钮2被点击")
-        self.send("按钮2", "被点击")
+        Logger.info("点击按钮2")
+        self.send("按钮2", None)
 
     def on_bnt3_clicked(self):
         '''按钮3点击事件'''
-        print("[DEBUG]按钮3被点击")
-        self.send("按钮3", "被点击")
+        Logger.info("点击按钮3")
+        self.send("按钮3", None)
 
     def on_bnt4_clicked(self):
         '''按钮4点击事件'''
-        print("[DEBUG]按钮4被点击")
-        self.send("按钮4", "被点击")
+        Logger.info("点击按钮4")
+        self.send("按钮4", None)
+
+
 
 
 

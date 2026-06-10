@@ -1,5 +1,6 @@
 from typing import Callable
 
+from logger import Logger
 
 class ViewerSignalBus():
     '''前端信号总线（全局唯一单例）'''
@@ -25,9 +26,9 @@ class ViewerSignalBus():
         if self._if_send_func_live(send_func, channel_name):
             raise ValueError(f"'{send_func.__name__}'试图作为发送者重复加入前端频段'{channel_name}'")
 
-        print(f"[INFO]前端创建频段'{channel_name}")
+        Logger.info("前端创建频段'{}", channel_name)
         self.signal_channel[channel_name]["sender"].append(send_func)
-        print(f"[INFO]前端频段'{channel_name}'添加成员'{send_func.__name__}'")
+        Logger.info("前端频段'{}'添加成员'{}'", channel_name, send_func.__name__)
 
 
     def leave_sender(self, send_func:Callable, channel_name:str):
@@ -38,7 +39,7 @@ class ViewerSignalBus():
             raise ValueError(f"'{send_func.__name__}'试图作为发送者退出尚未加入的前端频段'{channel_name}'")
 
         self.signal_channel[channel_name]["sender"].remove(send_func)
-        print(f"[INFO]前端频段'{channel_name}'删除成员'{send_func.__name__}'")
+        Logger.info("前端频段'{}'删除成员'{}'", channel_name, send_func.__name__)
 
 
     def join_receiver(self, receive_func:Callable, channel_name:str):
@@ -48,9 +49,9 @@ class ViewerSignalBus():
         if self._if_receive_func_live(receive_func, channel_name):
             raise ValueError(f"'{receive_func.__name__}'试图作为接收者重复加入前端频段'{channel_name}'")
 
-        print(f"[INFO]创建前端频段'{channel_name}")
+        Logger.info("创建前端频段'{}", channel_name)
         self.signal_channel[channel_name]["receiver"].append(receive_func)
-        print(f"[INFO]前端频段'{channel_name}'添加成员'{receive_func.__name__}'")
+        Logger.info("前端频段'{}'添加成员'{}'", channel_name, receive_func.__name__)
 
 
     def leave_receiver(self, receive_func:Callable, channel_name:str):
@@ -61,7 +62,7 @@ class ViewerSignalBus():
             raise ValueError(f"'{receive_func.__name__}'试图作为接收者退出尚未加入的前端频段'{channel_name}'")
 
         self.signal_channel[channel_name]["receiver"].remove(receive_func)
-        print(f"[INFO]前端频段'{channel_name}'删除成员'{receive_func.__name__}'")
+        Logger.info("前端频段'{}'删除成员'{}'", channel_name, receive_func.__name__)
 
 
     def send_signal(self, send_func:Callable, channel_name:str):

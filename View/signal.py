@@ -2,6 +2,7 @@ import ast
 from typing import Any
 from PySide6.QtCore import Slot, Signal, QObject
 
+from logger import Logger
 from view.signal_bus import ViewerSignalBus
 
 class ViewerSignalSender(QObject):
@@ -25,7 +26,7 @@ class ViewerSignalSender(QObject):
 
     def receive(self, signal:str, data:Any):
         '''向后端发送来自前端组件发送的信号（通过前端信号总线连接）'''
-        print(f"[INFO]前端信号发送器接收到通过信号总线发送的信号：{signal}，内容{data}")
+        Logger.info("前端信号发送器接收到通过信号总线发送的信号：{}，内容{}", signal, data)
         self.send(signal, data)
 
 
@@ -37,7 +38,10 @@ class ViewerSignalReceiver:
     @Slot(str, str)
     def receive(self, signal:str, data:str):
         '''接收信号'''
-        print(f"[INFO]前端信号接收器接收到 信号:{signal},内容:{data}")
+        if signal == "time_update":
+            Logger.debug("前端信号接收器接收到 信号:{},内容:{}", signal, data)
+        else:
+            Logger.info("前端信号接收器接收到 信号:{},内容:{}", signal, data)
         self.forword(signal, ast.literal_eval(data))  #将接收到的内容还原给前端主控
 
 

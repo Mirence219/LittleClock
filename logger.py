@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 LEVEL_DIC = {
@@ -9,6 +10,10 @@ LEVEL_DIC = {
     "EXCEPTION": 5
 }
 
+class classproperty(property):
+    def __get__(self, instance, owner):
+        return self.fget(owner)
+
 class Logger:
     '''日志记录器（全局工具类）'''
     _level = 0  # 默认 DEBUG 级别
@@ -18,6 +23,10 @@ class Logger:
         '''设置日志输出等级'''
         if level_str in LEVEL_DIC:
             cls._level = LEVEL_DIC[level_str]
+
+    @classproperty
+    def level(cls):
+        return cls._level
 
     @classmethod
     def _format_msg(cls, msg: str, *args, **kwargs) -> str:
@@ -29,14 +38,14 @@ class Logger:
             content = f"{msg} args={args} kwargs={kwargs}"
         # 拼接时间
         time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        return f"[{time_str}] {content}"
+        return f"[{time_str}]{content}"
 
     @classmethod
     def debug(cls, msg: str, *args, **kwargs):
         '''DEBUG级日志输出'''
         if LEVEL_DIC["DEBUG"] < cls._level:
             return
-        log_str = cls._format_msg(f"[DEBUG] {msg}", *args, **kwargs)
+        log_str = cls._format_msg(f"[DEBUG]{msg}", *args, **kwargs)
         print(log_str)
 
     @classmethod
@@ -44,7 +53,7 @@ class Logger:
         '''INFO级日志输出'''
         if LEVEL_DIC["INFO"] < cls._level:
             return
-        log_str = cls._format_msg(f"[INFO] {msg}", *args, **kwargs)
+        log_str = cls._format_msg(f"[INFO]{msg}", *args, **kwargs)
         print(log_str)
 
     @classmethod
@@ -52,7 +61,7 @@ class Logger:
         '''WARNING级日志输出'''
         if LEVEL_DIC["WARNING"] < cls._level:
             return
-        log_str = cls._format_msg(f"[WARNING] {msg}", *args, **kwargs)
+        log_str = cls._format_msg(f"[WARNING]{msg}", *args, **kwargs)
         print(log_str)
 
     @classmethod
@@ -60,7 +69,7 @@ class Logger:
         '''ERROR级日志输出'''
         if LEVEL_DIC["ERROR"] < cls._level:
             return
-        log_str = cls._format_msg(f"[ERROR] {msg}", *args, **kwargs)
+        log_str = cls._format_msg(f"[ERROR]{msg}", *args, **kwargs)
         print(log_str)
 
     @classmethod
@@ -68,7 +77,7 @@ class Logger:
         '''CRITICAL级日志输出'''
         if LEVEL_DIC["CRITICAL"] < cls._level:
             return
-        log_str = cls._format_msg(f"[CRITICAL] {msg}", *args, **kwargs)
+        log_str = cls._format_msg(f"[CRITICAL]{msg}", *args, **kwargs)
         print(log_str)
 
     @classmethod
@@ -76,6 +85,6 @@ class Logger:
         '''EXCEPTION级日志输出（异常专用）'''
         if LEVEL_DIC["EXCEPTION"] < cls._level:
             return
-        log_str = cls._format_msg(f"[EXCEPTION] {msg}", *args, **kwargs)
+        log_str = cls._format_msg(f"[EXCEPTION]{msg}", *args, **kwargs)
         print(log_str)
 

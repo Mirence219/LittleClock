@@ -1,17 +1,22 @@
 from PySide6.QtWidgets import QMainWindow
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QEvent, QObject, QPoint, Qt
 
 from logger import Logger
 from view.py_ui.ui_main_window import Ui_MainWindow
 from view.timeboard import TimeboardManager
 
-class MainWindowManager():
+class MainWindowManager(QObject):
     '''主窗口对象管理器'''
     def __init__(self, signal_sender):
+        super().__init__()
+
         self.signal_sender = signal_sender
         self._init_main_window()
         self._init_timeboard()
         self._connect_init()
+
+        self._draging = False
+        self._offset = QPoint(0, 0)
 
 
     def _init_main_window(self):
@@ -22,6 +27,8 @@ class MainWindowManager():
 
         self.window.setWindowFlags(Qt.FramelessWindowHint)      #去掉窗口上方标题栏
         self.window.setAttribute(Qt.WA_TranslucentBackground)   #设置透明窗口
+
+        self.window.installEventFilter(self)    #给主窗口安装事件过滤器，拦截鼠标事件
 
 
     def _init_timeboard(self):
@@ -44,6 +51,34 @@ class MainWindowManager():
     def send(self, signal:str, data):
         '''发送信号'''
         self.signal_sender.send(signal, data)
+
+
+    def eventFilter(self, obj, event):
+        '''鼠标事件拦截，由管理器处理业务'''
+        # 只监听主窗口的事件
+        if obj == self.window:
+            # 鼠标左键按下
+            if event.type() == QEvent.MouseButtonPress and event.button() == Qt.LeftButton:
+                self._draging = True
+                # 计算偏移：全局鼠标坐标 - 窗口左上角
+                self._offset = event.globalPosition().toPoint() - self.window.frameGeometry().topLeft()
+                Logger.info("鼠标左键点击主窗口")
+
+            # 鼠标移动
+            elif event.type() == QEvent.MouseMove and self._draging:
+                # 移动顶层窗口
+                new_pos = event.globalPosition().toPoint() - self._offset
+                self.window.move(new_pos)
+
+            # 鼠标左键释放
+            elif event.type() == QEvent.MouseButtonRelease and event.button() == Qt.LeftButton:
+                self._draging = False
+                Logger.info("鼠标左键松开主窗口")
+
+        # 必须返回，继续传递原有事件（保证按钮正常点击）
+        return False
+
+
 
     def on_bntClose_clicked(self):
         '''关闭窗口'''
@@ -74,11 +109,5 @@ class MainWindowManager():
         '''按钮4点击事件'''
         Logger.info("点击按钮4")
         self.send("按钮4", None)
-
-
-
-
-
-
 
 

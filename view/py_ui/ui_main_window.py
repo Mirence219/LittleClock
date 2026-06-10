@@ -29,14 +29,14 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(u"background-color: rgba(80, 80, 80, 160);\n"
 "border-radius: 10px;\n"
 "color: white")
-        self.centralwidget = QWidget(MainWindow)
-        self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setStyleSheet(u"")
-        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.centralWidget = QWidget(MainWindow)
+        self.centralWidget.setObjectName(u"centralWidget")
+        self.centralWidget.setStyleSheet(u"")
+        self.verticalLayout = QVBoxLayout(self.centralWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.lbTitle = QLabel(self.centralwidget)
+        self.lbTitle = QLabel(self.centralWidget)
         self.lbTitle.setObjectName(u"lbTitle")
         self.lbTitle.setMinimumSize(QSize(0, 0))
         self.lbTitle.setStyleSheet(u"font: 700 12pt \"Microsoft YaHei UI\";\n"
@@ -51,21 +51,21 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.bntSetting = QPushButton(self.centralwidget)
+        self.bntSetting = QPushButton(self.centralWidget)
         self.bntSetting.setObjectName(u"bntSetting")
         icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.DocumentNew))
         self.bntSetting.setIcon(icon)
 
         self.horizontalLayout.addWidget(self.bntSetting)
 
-        self.bntMinimize = QPushButton(self.centralwidget)
+        self.bntMinimize = QPushButton(self.centralWidget)
         self.bntMinimize.setObjectName(u"bntMinimize")
         icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ListRemove))
         self.bntMinimize.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.bntMinimize)
 
-        self.bntClose = QPushButton(self.centralwidget)
+        self.bntClose = QPushButton(self.centralWidget)
         self.bntClose.setObjectName(u"bntClose")
         icon2 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ApplicationExit))
         self.bntClose.setIcon(icon2)
@@ -77,11 +77,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.wgtTimeboard = Timeboard(self.centralwidget)
+        self.wgtTimeboard = Timeboard(self.centralWidget)
         self.wgtTimeboard.setObjectName(u"wgtTimeboard")
         self.wgtTimeboard.setMinimumSize(QSize(0, 100))
         self.wgtTimeboard.setMaximumSize(QSize(16777215, 150))
-        self.wgtTimeboard.setStyleSheet(u"border: 1px solid #666; \n"
+        self.wgtTimeboard.setStyleSheet(u"border: 2px solid #666; \n"
 "border-radius: 8px;")
 
         self.verticalLayout_2.addWidget(self.wgtTimeboard)
@@ -92,19 +92,19 @@ class Ui_MainWindow(object):
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, -1, 0, -1)
-        self.bnt3 = QPushButton(self.centralwidget)
+        self.bnt3 = QPushButton(self.centralWidget)
         self.bnt3.setObjectName(u"bnt3")
         self.bnt3.setMinimumSize(QSize(0, 25))
 
         self.gridLayout.addWidget(self.bnt3, 0, 2, 1, 1)
 
-        self.bnt2 = QPushButton(self.centralwidget)
+        self.bnt2 = QPushButton(self.centralWidget)
         self.bnt2.setObjectName(u"bnt2")
         self.bnt2.setMinimumSize(QSize(0, 25))
 
         self.gridLayout.addWidget(self.bnt2, 0, 1, 1, 1)
 
-        self.bnt1 = QPushButton(self.centralwidget)
+        self.bnt1 = QPushButton(self.centralWidget)
         self.bnt1.setObjectName(u"bnt1")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -115,7 +115,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.bnt1, 0, 0, 1, 1)
 
-        self.bnt4 = QPushButton(self.centralwidget)
+        self.bnt4 = QPushButton(self.centralWidget)
         self.bnt4.setObjectName(u"bnt4")
         self.bnt4.setMinimumSize(QSize(0, 25))
 
@@ -124,7 +124,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.gridLayout)
 
-        MainWindow.setCentralWidget(self.centralwidget)
+        MainWindow.setCentralWidget(self.centralWidget)
 
         self.retranslateUi(MainWindow)
 

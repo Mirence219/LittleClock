@@ -8,8 +8,6 @@ from logger import Logger
 if __name__ == "__main__":
     if sys.platform == "linux": #linux系统Qt额外设置
         os.environ["QT_QPA_PLATFORM"] = "xcb"
-        os.environ["QT_QUICK_BACKEND"] = "software"
-        os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = ""
 
     Logger.set_level("INFO" if debug else "WARNING")   #配置日志等级
     

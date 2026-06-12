@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e597d73d-ec3d-432c-8541-b6be3bf8f535</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>src\__main__.py</StartupFile>
+    <StartupFile>__main__.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,50 +24,67 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="control\renderer\abstract_renderer.py" />
-    <Compile Include="control\renderer\__init__.py" />
-    <Compile Include="control\signal_bus.py" />
-    <Compile Include="control\time_manager\abstract_time_manager.py" />
-    <Compile Include="control\controller.py" />
-    <Compile Include="control\controller_mediater.py" />
-    <Compile Include="control\signal.py" />
-    <Compile Include="control\renderer\digital_tube.py" />
-    <Compile Include="control\render_meta_data.py" />
-    <Compile Include="control\time_manager\system_time.py" />
-    <Compile Include="control\time_manager\__init__.py" />
-    <Compile Include="control\__init__.py" />
+    <Compile Include="src\control\controller.py" />
+    <Compile Include="src\control\controller_mediater.py" />
+    <Compile Include="src\control\renderer\abstract_renderer.py" />
+    <Compile Include="src\control\renderer\digital_tube.py" />
+    <Compile Include="src\control\renderer\__init__.py" />
+    <Compile Include="src\control\render_meta_data.py" />
+    <Compile Include="src\control\signal.py" />
+    <Compile Include="src\control\signal_bus.py" />
+    <Compile Include="src\control\time_manager\abstract_time_manager.py" />
+    <Compile Include="src\control\time_manager\system_time.py" />
+    <Compile Include="src\control\time_manager\__init__.py" />
+    <Compile Include="src\control\__init__.py" />
     <Compile Include="src\logger.py" />
-    <Compile Include="view\main_window.py" />
     <Compile Include="src\ui2py.py" />
-    <Compile Include="View\py_ui\ui_main_window.py" />
-    <Compile Include="view\py_ui\__init__.py" />
-    <Compile Include="view\__init__.py" />
+    <Compile Include="src\view\main_window.py" />
+    <Compile Include="src\view\py_ui\ui_main_window.py" />
+    <Compile Include="src\view\py_ui\__init__.py" />
+    <Compile Include="src\view\signal.py" />
+    <Compile Include="src\view\signal_bus.py" />
+    <Compile Include="src\view\timeboard.py" />
+    <Compile Include="src\view\ui_adapter.py" />
+    <Compile Include="src\view\viewer.py" />
+    <Compile Include="src\view\__init__.py" />
     <Compile Include="src\__version__.py" />
-    <Compile Include="view\signal_bus.py" />
-    <Compile Include="view\timeboard.py" />
-    <Compile Include="view\ui_adapter.py" />
-    <Compile Include="view\viewer.py" />
-    <Compile Include="view\signal.py" />
-    <Compile Include="src\__main__.py" />
+    <Compile Include="__main__.py" />
     <Compile Include="src\littleclock.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
-    <Folder Include="control\" />
     <Folder Include="src\control\" />
-    <Folder Include="control\renderer\" />
-    <Folder Include="control\time_manager\" />
     <Folder Include="src\" />
+    <Folder Include="src\control\renderer\" />
+    <Folder Include="src\control\renderer\__pycache__\" />
+    <Folder Include="src\control\time_manager\" />
+    <Folder Include="src\control\time_manager\__pycache__\" />
     <Folder Include="src\view\" />
-    <Folder Include="view\" />
-    <Folder Include="view\py_ui\" />
-    <Folder Include="view\qt_ui\" />
+    <Folder Include="src\view\py_ui\" />
+    <Folder Include="src\view\py_ui\__pycache__\" />
+    <Folder Include="src\view\qt_ui\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\LittleClock.ico" />
     <Content Include="LittleClock UML.png" />
     <Content Include="README.md" />
-    <Content Include="View\qt_ui\main_window.ui" />
+    <Content Include="src\control\renderer\__pycache__\abstract_renderer.cpython-312.pyc" />
+    <Content Include="src\control\renderer\__pycache__\abstract_renderer.cpython-314.pyc" />
+    <Content Include="src\control\renderer\__pycache__\digital_tube.cpython-312.pyc" />
+    <Content Include="src\control\renderer\__pycache__\digital_tube.cpython-314.pyc" />
+    <Content Include="src\control\renderer\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="src\control\renderer\__pycache__\__init__.cpython-314.pyc" />
+    <Content Include="src\control\time_manager\__pycache__\abstract_time_manager.cpython-312.pyc" />
+    <Content Include="src\control\time_manager\__pycache__\abstract_time_manager.cpython-314.pyc" />
+    <Content Include="src\control\time_manager\__pycache__\system_time.cpython-312.pyc" />
+    <Content Include="src\control\time_manager\__pycache__\system_time.cpython-314.pyc" />
+    <Content Include="src\control\time_manager\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="src\control\time_manager\__pycache__\__init__.cpython-314.pyc" />
+    <Content Include="src\view\py_ui\__pycache__\ui_main_window.cpython-312.pyc" />
+    <Content Include="src\view\py_ui\__pycache__\ui_main_window.cpython-314.pyc" />
+    <Content Include="src\view\py_ui\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="src\view\py_ui\__pycache__\__init__.cpython-314.pyc" />
+    <Content Include="src\view\qt_ui\main_window.ui" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -84,7 +84,7 @@ class Timeboard(QWidget):
         # 冒号
         colon_x = x2 + seg_w + colon_gap
         colon_y = start_y + seg_h * 0.2
-        self.draw_colon(painter, colon_x, colon_y, dot_r)
+        self.draw_colon(painter, colon_x, colon_y, dot_r, self._render_data[2])
         # 第3个8
         x3 = colon_x + dot_r + colon_gap
         self.draw_digit_8(painter, x3, start_y, seg_w, seg_h, gap, self._render_data[3])
@@ -119,9 +119,10 @@ class Timeboard(QWidget):
         if 1 in render_data["pos"]:
             painter.drawLine(x + gap, mid_y, x + seg_w, mid_y)
 
-    def draw_colon(self, painter, x, y, dot_r):
+    def draw_colon(self, painter, x, y, dot_r, render_data):
         """绘制冒号圆点，大小动态适配"""
-        painter.drawEllipse(x, y, dot_r, dot_r)
-        painter.drawEllipse(x, y + seg_h * 0.4, dot_r, dot_r)
+        if 9 in render_data["pos"]:
+            painter.drawEllipse(x, y, dot_r, dot_r)
+            painter.drawEllipse(x, y + seg_h * 0.4, dot_r, dot_r)
 
 

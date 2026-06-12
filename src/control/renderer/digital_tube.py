@@ -28,13 +28,15 @@ class DigitalTubeRenderer(AbstractRenderer):
         self._mode = "digital"
 
 
-    def render(self, input_str) -> dict:
+    def render(self, input_str:str, count:int = 0) -> dict:
         if input_str not in self.DIGITAL_TUBE_DIC: 
             raise ValueError("无法渲染非法的字符")
 
         self._meta["pos"] = self.DIGITAL_TUBE_DIC[input_str]
+        if input_str == ":" and count > 5:    #实现冒号闪烁
+            self._meta["pos"] = set()
 
-        return self._meta
+        return self._meta.copy()
 
     def meta_patch(self, old_meta:dict, new_meta:dict) -> tuple | None:
         add_meta =  new_meta["pos"] - old_meta["pos"]   #通过差集运算快速得出变化的数码管位置

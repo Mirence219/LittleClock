@@ -2,8 +2,10 @@ from typing import Callable
 
 from PySide6.QtCore import QTime, QObject, QThread, QTimer, Slot, Signal
 
+from logger import Logger
+
 #时间对象刷新间隔(ms)
-REFRESH_TIME = 100  
+REFRESH_TIME = 100
 
 class AbstractTime(QObject):
     '''时间对象接口
@@ -35,7 +37,7 @@ class AbstractTime(QObject):
         '''刷新时间
         self.time_update.emit(self._last_time)
         '''
-        raise NotImplementedError(f"AbstractTime子类{self.__class__.__name__}未实现 _init_refresh()")
+        raise NotImplementedError(f"AbstractTime子类{self.__class__.__name__}未实现 _refresh()")
 
     def _get_time_str(self) -> str:
         '''返回时间字符串
@@ -48,7 +50,10 @@ class AbstractTime(QObject):
         if self._timer is None:  #延迟创建timer
             self._init_timer()
             self._init_connect()
-        self._timer.start()
+        if not self._timer.isActive(): # 只有没运行时才启动
+            self._timer.start()
+        else:
+            Logger.warning("AbstractTime子类{self.__class__.__name__}重复创建_timer计时对象！")
 
     def stop(self):
         '''停用刷新计时器'''
@@ -72,7 +77,7 @@ class AbstractTimeManager:
         self._time_thread.started.connect(self._time.start) #线程开/关控制刷新计时器
         self._time_thread.finished.connect(self._time.stop)
         self._time_thread.finished.connect(self._time.deleteLater)
-        self._time.time_update.connect(self._on_time_received)  #信号连接
+        self._time.time_update.connect(self._on_received)  #信号连接
         self._time_thread.start()
         '''
         raise NotImplementedError(f"AbstractTimeManager子类{self.__class__.__name__}未实现 _init_time()")

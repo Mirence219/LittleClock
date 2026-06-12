@@ -8,8 +8,10 @@ class RenderMetaData:
 
         self._meta_data = []        #返回的元数据列表组成[mode:str, patch:bool,meta1:dict, meta2:dict, ...]
         self._last_meta_data = []
+        self._count = 0     #渲染次数统计，用于实现一些动态效果（如冒号闪烁）
         self._renderer_tuple = (DigitalTubeRenderer(), )
         self.select_render_mode("digital_tube")
+
 
     def _init_signal(self):
         '''初始化通信'''
@@ -32,9 +34,14 @@ class RenderMetaData:
         '''交由渲染器逐个渲染字符,并返回元数据列表'''
         if self._first_render:
             self._first_render = False
+
+        self._count = (self._count + 1) % 10
+
         meta_list = [self._mode, self._patch and not self._first_render]
         for i in range(len(time_str)):
-            meta_list.append(self._renderer.render(time_str[i]).copy()) #copy拷贝，否则返回的只是引用
+            meta_list.append(self._renderer.render(time_str[i], self._count)) #返回的是深拷贝后的字典
+
+
         self._last_meta_data = self._meta_data.copy()
         self._meta_data = meta_list.copy()
 

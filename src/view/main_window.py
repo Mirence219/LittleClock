@@ -1,5 +1,7 @@
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow, QSystemTrayIcon, QMenu
 from PySide6.QtCore import QEvent, QObject, QPoint, Qt
+from PySide6.QtGui import QAction, QIcon
+import os
 
 from logger import Logger
 from view.py_ui.ui_main_window import Ui_MainWindow
@@ -13,6 +15,7 @@ class MainWindowManager(QObject):
         self.signal_sender = signal_sender
         self._init_main_window()
         self._init_timeboard()
+        self._init_tray()
         self._connect_init()
 
         self._draging = False
@@ -35,10 +38,40 @@ class MainWindowManager(QObject):
         '''初始化时间面板管理器'''
         self.timeboard = TimeboardManager(self.ui.wgtTimeboard)
 
+    def _init_tray(self):
+        '''初始化系统托盘'''
+        # ========== 初始化托盘 ==========
+        self.tray_icon = QSystemTrayIcon(self)
+        # 托盘图标（必须设置，可放你的项目图标，没有就用系统默认）
+        self.tray_icon.setIcon(QIcon(r"assets\LittleClock.ico"))
+        # 鼠标悬浮托盘提示文字
+        self.tray_icon.setToolTip("LittleClock")
+
+        # 托盘右键菜单
+        self.tray_menu = QMenu()
+        # 显示窗口菜单项
+        self.act_show = QAction("显示LittleClock", self.window)
+        self.act_show.triggered.connect(self.show)
+        # 退出程序菜单项
+        self.act_quit = QAction("退出LittleClock", self)
+        self.act_quit.triggered.connect(self.close)
+
+        self.tray_menu.addAction(self.act_show)
+        self.tray_menu.addSeparator()
+        self.tray_menu.addAction(self.act_quit)
+        self.tray_icon.setContextMenu(self.tray_menu)
+
+        # 托盘双击事件：双击图标还原窗口
+        self.tray_icon.activated.connect(self.show)
+
+        # 启用托盘显示
+        self.tray_icon.show()
+
 
     def _connect_init(self):
         '''绑定按键事件'''
         self.ui.bntClose.clicked.connect(self.on_bntClose_clicked)
+        self.ui.bntMinimize.clicked.connect(self.on_bntMinimise_clicked)
         self.ui.bnt1.clicked.connect(self.on_bnt1_clicked)
         self.ui.bnt2.clicked.connect(self.on_bnt2_clicked)
         self.ui.bnt3.clicked.connect(self.on_bnt3_clicked)
@@ -47,6 +80,13 @@ class MainWindowManager(QObject):
     def show(self):
         '''启动窗口'''
         self.window.show()
+        self.window.raise_()
+
+    def close(self):
+        '''关闭窗口（退出程序）'''
+        Logger.info("退出LittleClock程序")
+        self.tray_icon.hide()
+        self.window.close()
 
     def send(self, signal:str, data):
         '''发送信号'''
@@ -81,14 +121,22 @@ class MainWindowManager(QObject):
 
 
     def on_bntClose_clicked(self):
-        '''关闭窗口'''
-        Logger.info("点击关闭窗口")
-        self.window.close()
+        '''直接关闭窗口（最小化到系统托盘）'''
+        Logger.info("点击关闭窗口（最小化至系统托盘）")
+        self.window.hide()
+        # 弹出气泡提示（可选）
+        self.tray_icon.showMessage(
+            "LittleClock",
+            "程序已最小化至系统托盘，单击图标恢复窗口",
+            QSystemTrayIcon.Information,
+            2000
+        )
 
-    def on_MainWindow_clicked(self):
-        '''点击主窗口（拖拽）'''
-        Logger.info("点击主窗口")
-
+    def on_bntMinimise_clicked(self):
+        ''''最小化窗口'''
+        Logger.info("点击最小化窗口")
+        self.window.setWindowState(Qt.WindowMinimized)
+ 
 
     def on_bnt1_clicked(self):
         '''按钮1点击事件'''

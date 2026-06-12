@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e597d73d-ec3d-432c-8541-b6be3bf8f535</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>__main__.py</StartupFile>
+    <StartupFile>src\__main__.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -36,30 +36,35 @@
     <Compile Include="control\time_manager\system_time.py" />
     <Compile Include="control\time_manager\__init__.py" />
     <Compile Include="control\__init__.py" />
-    <Compile Include="logger.py" />
+    <Compile Include="src\logger.py" />
     <Compile Include="view\main_window.py" />
-    <Compile Include="ui2py.py" />
+    <Compile Include="src\ui2py.py" />
     <Compile Include="View\py_ui\ui_main_window.py" />
     <Compile Include="view\py_ui\__init__.py" />
     <Compile Include="view\__init__.py" />
-    <Compile Include="__version__.py" />
+    <Compile Include="src\__version__.py" />
     <Compile Include="view\signal_bus.py" />
     <Compile Include="view\timeboard.py" />
     <Compile Include="view\ui_adapter.py" />
     <Compile Include="view\viewer.py" />
     <Compile Include="view\signal.py" />
-    <Compile Include="__main__.py" />
-    <Compile Include="littleclock.py" />
+    <Compile Include="src\__main__.py" />
+    <Compile Include="src\littleclock.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\" />
     <Folder Include="control\" />
+    <Folder Include="src\control\" />
     <Folder Include="control\renderer\" />
     <Folder Include="control\time_manager\" />
+    <Folder Include="src\" />
+    <Folder Include="src\view\" />
     <Folder Include="view\" />
     <Folder Include="view\py_ui\" />
     <Folder Include="view\qt_ui\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\LittleClock.ico" />
     <Content Include="LittleClock UML.png" />
     <Content Include="README.md" />
     <Content Include="View\qt_ui\main_window.ui" />

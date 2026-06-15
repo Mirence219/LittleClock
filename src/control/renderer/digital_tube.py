@@ -1,4 +1,4 @@
-from control.renderer.abstract_renderer import AbstractRenderer
+from src.control.renderer.abstract_renderer import AbstractRenderer
 
 class DigitalTubeRenderer(AbstractRenderer):
     '''数码管渲染器'''

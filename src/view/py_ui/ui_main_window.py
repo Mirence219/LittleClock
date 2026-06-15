@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
 
-from view.timeboard import Timeboard
+from src.view.timeboard import Timeboard
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -58,12 +58,13 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.bntSetting)
 
-        self.bntMinimize = QPushButton(self.centralWidget)
-        self.bntMinimize.setObjectName(u"bntMinimize")
-        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ListRemove))
-        self.bntMinimize.setIcon(icon1)
+        self.bntTophint = QPushButton(self.centralWidget)
+        self.bntTophint.setObjectName(u"bntTophint")
+        self.bntTophint.setStyleSheet(u"")
+        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.MailAttachment))
+        self.bntTophint.setIcon(icon1)
 
-        self.horizontalLayout.addWidget(self.bntMinimize)
+        self.horizontalLayout.addWidget(self.bntTophint)
 
         self.bntClose = QPushButton(self.centralWidget)
         self.bntClose.setObjectName(u"bntClose")
@@ -135,7 +136,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"LittleClock", None))
         self.lbTitle.setText(QCoreApplication.translate("MainWindow", u"LittleClock", None))
         self.bntSetting.setText("")
-        self.bntMinimize.setText("")
+        self.bntTophint.setText("")
         self.bntClose.setText("")
         self.bnt3.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e3", None))
         self.bnt2.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e2", None))

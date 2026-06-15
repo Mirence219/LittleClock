@@ -1,7 +1,7 @@
 from PySide6.QtCore import QThread
 
-from view.viewer import Viewer
-from control.controller import Controller
+from src.view.viewer import Viewer
+from src.control.controller import Controller
 
 class LittleClock:
     '''程序入口'''
@@ -12,14 +12,21 @@ class LittleClock:
 
         self._init_signal_connect()
 
-        self.controller.moveToThread(self.controller_thread)    #将后端移入子线程
-        self.controller_thread.start()
+        self._init_controller_thread()
         
 
     def _init_signal_connect(self):
         '''绑定前后端信号管理器'''
         self.viewer.connect_signal(self.controller.signal_receiver.receive)
         self.controller.connect_signal(self.viewer.signal_receiver.receive)
+
+
+    def _init_controller_thread(self):
+        '''初始化后端线程'''
+        self.controller_thread.finished.connect(self.controller.emit_finish_signal) #后端终止时向前端发送确认
+        self.controller.moveToThread(self.controller_thread)    #将后端移入子线程
+        self.controller_thread.start()
+
 
     def run(self):
         self.viewer.run()

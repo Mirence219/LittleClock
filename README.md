@@ -4,60 +4,72 @@
 
 # ⏱️极简风格桌面时钟小组件
 
-一款基于 Python \+ PySide6 开发的**极简现代化****风格的****桌面小组件**，采用精致实体灯管UI设计，通透干净的视觉风格，搭配透明无框窗口，轻量化常驻桌面，简约高级且无后台负担。
+一款基于 Python + PySide6 开发的**极简现代化风格桌面悬浮小组件**，采用实体数码灯管UI设计，通透干净透明无框窗口，轻量化常驻桌面，简约高级、无多余后台负担。
 
-**当前版本说明(v1.0)：**
-本版本为公开测试版，时钟核心功能可正常使用。目前窗口拖拽、功能设置等交互功能仍在开发完善中，后续迭代会逐步补充。
+**当前版本说明(v1.1.1)：**
+正式稳定可用版本，目前仅实现显示系统时间，但是已满足日常交互需求，开箱即用。
 
 ---
 
+## 📝 v1.1.1 更新日志（最新）
+1. 支持最小化至系统托盘后台驻留，点击托盘图标一键恢复窗口，右键图标可打开菜单退出LittleClock；
+2. 移除任务栏图标，运行时不在系统任务栏展示程序标识；
+3. 新增窗口置顶功能，时钟固定悬浮顶层；
+4. LittleClock启动时自动定位至屏幕右上角；
+5. LittleClock升级为工具窗口，不在 `Alt+Tab` / `Win+Tab` 窗口切换中显示，不受 `Win+D` / `Win+M` 影响；
+6. 优化LittleClock进程退出逻辑。
+
 ## ✨ 项目特点
+### 性能轻量化
+- **极低资源占用**
+打包后 Windows 平台常驻内存仅约 20MB，日常待机 CPU 占用稳定低于 0.1%，几乎不占用硬件性能；在虚拟内存作用下内存占用可低至 10MB 以内。
+- **高效渲染刷新**
+仅局部重绘变化灯管数字，减少全局UI刷新，界面流畅无卡顿。
 
-- **低资源占用**
-打包后常驻内存仅约 20MB，CPU 占用长期低于 0\.1%，后台挂着也不会影响电脑性能。
+### 现代化窗口
+- 透明无边框设计，无标题栏，和桌面壁纸完美融合；
+- 启动自动吸附屏幕右上角，无需手动摆放；
+- 支持窗口置顶，时钟永久悬浮所有窗口上层；
+- 最小化至系统托盘，后台静默运行；
 
-- **透明无框窗口**
-窗口无标题栏，背景透明，可自由拖拽到桌面任意位置，和壁纸完美融合。
-
-- **自适应布局**
-~~窗口大小可自由调整~~，数码管会自动居中重绘，适配各种尺寸的桌面布局。
-
-- **~~差分更新优化~~**
-~~仅更新变化的灯管数据，减少不必要的 UI 刷新，让运行更流畅~~。
+### 布局适配
+窗口尺寸自适应，数码灯管自动居中重绘，适配各类桌面分辨率与布局。
 
 ---
 
 ## 🚀 运行方式
+### 1. 直接获取成品程序（推荐普通用户）
+前往 [`Releases`](https://github.com/Mirence219/LittleClock/releases) 下载打包好的可执行文件
+> **☞ 直达稳定版：** [`LittleClock v1.1.1`](https://github.com/Mirence219/LittleClock/releases/tag/v1.1.1)
 
-### 1. 直接获取（使用）
-直接前往 [`Releases`](https://github.com/Mirence219/LittleClock/releases) 页面获取安装包。
-
-> **☞ 直达最新版：** [`LittleClock v1.0.0`](https://github.com/Mirence219/LittleClock/releases/tag/v1.0.0)
-### 2\. 源码运行（开发 / 调试）
-
+### 2. 源码运行（开发 / 二次调试）
 ```bash
 # 安装依赖
 pip install pyside6
-pip install pyinstaller
 
 # 启动程序
 python __main__.py
 ```
 
-### 3\. 打包运行（PyInstaller）
-
+### 3. PyInstaller 打包
 ```bash
-pyinstaller --onefile --windowed --name LittleClock --clean --noconsole __main__.py
+#Windows打包（.exe）
+pyinstaller --onefile --windowed --name LittleClock --clean --add-data "assets;assets" __main__.py
 ```
-
-打包完成后，进入 `dist` 目录，双击 `LittleClock.exe` 即可启动。
+```bash
+#Linux打包（.bin）
+pyinstaller --onefile --noconsole --name LittleClock.bin --clean --add-data "assets:assets" __main__.py
+```
+打包产物在 `dist` 文件夹，双击 `LittleClock.exe`/`LittleClock.bin` 即可独立运行。
 
 ---
 
-## 📊 资源占用（v1.0）
-
-|运行场景|峰值内存占用|长期运行内存|
+## 📊 资源占用（v1.1.1 稳定版）
+|运行平台|启动峰值内存|长期待机内存|
 |---|---|---|
-|Window|≈45 MB|≈20MB|
+|Windows|≈45 MB|≈20 MB|
 |Linux|≈110 MB|30MB ~ 110MB|
->补充说明：Linux 平台受 X11 图形缓存机制影响，内存会在区间内周期性涨跌，属于正常平台特性。
+>补充说明：Linux 平台受 X11 图形缓存机制影响，内存会周期性小幅波动，属于系统正常特性，不影响使用。
+
+---
+

@@ -2,9 +2,9 @@ from typing import Any
 from PySide6.QtWidgets import QApplication
 import sys
 
-from logger import Logger
-from view.main_window import MainWindowManager
-from view.signal import ViewerSignalReceiver, ViewerSignalSender
+from src.logger import Logger
+from src.view.main_window import MainWindowManager
+from src.view.signal import ViewerSignalReceiver, ViewerSignalSender
 
 class Viewer():
     '''前端主控类'''
@@ -15,7 +15,7 @@ class Viewer():
     def _init_main_window_manager(self):
         '''窗口管理器初始化'''
         self.app = QApplication(sys.argv)
-        self.main_window_manager = MainWindowManager(self.signal_sender)
+        self.main_window_manager = MainWindowManager(self.signal_sender, self.quit)
 
     def _init_signal_manager(self):
         '''信号管理器初始化(与后端通信)'''
@@ -35,7 +35,18 @@ class Viewer():
         if signal == "time_update":
             Logger.debug("前端主控接收到转发 信号:{}, 内容:{}", signal, data)
             self.update_time(data)
+            return
+
+        Logger.debug("前端主控接收到转发 信号:{}, 内容:{}", signal, data)
+        if signal == "finish-shutdown":
+            self.main_window_manager.confirm_close()
+
 
     def update_time(self, render_data:list):
         '''设置时间面板'''
         self.main_window_manager.timeboard.set_time(render_data)
+
+    def quit(self):
+        '''退出进程（回调函数）'''
+        Logger.info("退出LittleClock程序")
+        self.app.quit()

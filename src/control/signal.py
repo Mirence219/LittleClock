@@ -2,8 +2,8 @@ import ast
 from typing import Any, Callable
 from PySide6.QtCore import Slot, Signal, QObject
 
-from logger import Logger
-from control.signal_bus import ControllerSignalBus
+from src.logger import Logger
+from src.control.signal_bus import ControllerSignalBus
 
 class ControllerSignalSender(QObject):
     '''后端信号发送器'''

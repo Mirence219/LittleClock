@@ -2,7 +2,7 @@ from PySide6.QtCore import QThread, QObject, QTime, QCoreApplication
 import time
 import sys
 
-from control.time_manager.abstract_time_manager import AbstractTimeManager, AbstractTime
+from src.control.time_manager.abstract_time_manager import AbstractTimeManager, AbstractTime
 
 #时间字符串格式
 TIME_FORMAT = "hh:mm:ss"

@@ -71,12 +71,15 @@ padding-left:1
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="bntMinimize">
+       <widget class="QPushButton" name="bntTophint">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
-         <iconset theme="QIcon::ThemeIcon::ListRemove"/>
+         <iconset theme="QIcon::ThemeIcon::MailAttachment"/>
         </property>
        </widget>
       </item>
@@ -191,7 +194,7 @@ border-radius: 8px;</string>
   <customwidget>
    <class>Timeboard</class>
    <extends>QWidget</extends>
-   <header>view.timeboard</header>
+   <header>src.view.timeboard</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

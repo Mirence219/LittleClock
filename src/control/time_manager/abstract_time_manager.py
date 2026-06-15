@@ -2,7 +2,7 @@ from typing import Callable
 
 from PySide6.QtCore import QTime, QObject, QThread, QTimer, Slot, Signal
 
-from logger import Logger
+from src.logger import Logger
 
 #时间对象刷新间隔(ms)
 REFRESH_TIME = 100
@@ -53,10 +53,11 @@ class AbstractTime(QObject):
         if not self._timer.isActive(): # 只有没运行时才启动
             self._timer.start()
         else:
-            Logger.warning("AbstractTime子类{self.__class__.__name__}重复创建_timer计时对象！")
+            Logger.warning("AbstractTime子类{}重复创建_timer计时对象！", self.__class__.__name__)
 
     def stop(self):
         '''停用刷新计时器'''
+        Logger.info("计时器{}已停止", self.__class__.__name__)
         self._timer.stop()
 
 
@@ -70,7 +71,8 @@ class AbstractTimeManager:
         self.send_time = callback   #调用中介者的回调函数向前端发送信号
 
     def _init_time(self):
-        '''初始化时间对象
+        '''初始化时间对象'''
+        '''
         self._time = AbstractTime()
         self._time_thread = QThread()
         self._time.moveToThread(self._time_thread)
@@ -93,6 +95,11 @@ class AbstractTimeManager:
     def _get_time(self) -> str:
         '''返回时间的字符串输出'''
         return self._last_time
+
+    
+    def quit(self):
+        '''终止时间对象的线程'''
+        self._time_thread.quit()
 
 
 

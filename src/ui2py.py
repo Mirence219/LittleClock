@@ -6,8 +6,8 @@ import subprocess
 from pathlib import Path
 
 # ===================== 可配置项（根据项目修改） =====================
-UI_ROOT_DIR = "view/qt_ui"       # .ui文件根目录（会递归遍历所有子目录）
-PY_OUTPUT_ROOT_DIR = "view/py_ui"   # .py文件输出根目录（保持原目录结构）
+UI_ROOT_DIR = "assets/qt_ui"       # .ui文件根目录（会递归遍历所有子目录）
+PY_OUTPUT_ROOT_DIR = "src/view/py_ui"   # .py文件输出根目录（保持原目录结构）
 UIC_COMMAND = "pyside6-uic"     # pyside6-uic命令（环境变量已配则无需改）
 PY_FILE_PREFIX = "ui_"          # 生成的py文件前缀（main.ui → ui_main.py）
 ENCODING = "utf-8"              # 编码（解决中文路径/文件名问题）

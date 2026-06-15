@@ -2,10 +2,10 @@ import sys
 
 from PySide6.QtCore import QCoreApplication
 
-from control.time_manager.system_time import SystemTimeManager
-from control.time_manager.abstract_time_manager import AbstractTimeManager
-from control.signal_bus import ControllerSignalBus
-from control.signal import ControllerSignalSender
+from src.control.time_manager.system_time import SystemTimeManager
+from src.control.time_manager.abstract_time_manager import AbstractTimeManager
+from src.control.signal_bus import ControllerSignalBus
+from src.control.signal import ControllerSignalSender
 
 class ControllerMediater:
     '''后端中介者类'''
@@ -30,6 +30,11 @@ class ControllerMediater:
         '''发送时间信号（回调函数）'''
         self.time_signal["data"] = time_str
         self.signal_bus.send_signal(self.get_time_signal, self.signal_channel)
+
+
+    def quit(self):
+        '''控制时间对象终止线程'''
+        self.time_manager_mode.quit()
 
 if __name__ == "__main__":
     app = QCoreApplication(sys.argv)

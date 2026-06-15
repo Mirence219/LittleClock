@@ -1,7 +1,7 @@
 from PySide6.QtGui import QColor, QPainter, QPen, Qt
 from PySide6.QtWidgets import QWidget
 
-from logger import Logger
+from src.logger import Logger
 
 
 class TimeboardManager:

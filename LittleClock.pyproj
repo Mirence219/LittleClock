@@ -14,6 +14,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <Environment>debug=true</Environment>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,7 +63,7 @@
     <Folder Include="src\view\" />
     <Folder Include="src\view\py_ui\" />
     <Folder Include="src\view\py_ui\__pycache__\" />
-    <Folder Include="src\view\qt_ui\" />
+    <Folder Include="assets\qt_ui\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\LittleClock.ico" />
@@ -84,7 +85,7 @@
     <Content Include="src\view\py_ui\__pycache__\ui_main_window.cpython-314.pyc" />
     <Content Include="src\view\py_ui\__pycache__\__init__.cpython-312.pyc" />
     <Content Include="src\view\py_ui\__pycache__\__init__.cpython-314.pyc" />
-    <Content Include="src\view\qt_ui\main_window.ui" />
+    <Content Include="assets\qt_ui\main_window.ui" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

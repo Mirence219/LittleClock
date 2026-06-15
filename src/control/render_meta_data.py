@@ -1,5 +1,5 @@
-from control.renderer.digital_tube import DigitalTubeRenderer
-from control.signal_bus import ControllerSignalBus
+from src.control.renderer.digital_tube import DigitalTubeRenderer
+from src.control.signal_bus import ControllerSignalBus
 
 class RenderMetaData:
     '''渲染元数据管理器'''

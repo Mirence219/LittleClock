@@ -1,6 +1,6 @@
 from typing import Callable
 
-from logger import Logger
+from src.logger import Logger
 
 class ControllerSignalBus():
     '''后端信号总线（全局唯一单例）'''

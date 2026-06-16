@@ -43,28 +43,43 @@
 > **☞ 直达稳定版：** [`LittleClock v1.1.1`](https://github.com/Mirence219/LittleClock/releases/tag/v1.1.1)
 
 ### 2. 源码运行（开发 / 二次调试）
+#### Github官方源
 ```bash
-# 安装依赖
-pip install pyside6
-
+# 克隆仓库
+git clone https://github.com/mirence219/littleclock
+# 进入项目目录
+cd littleclock
+# 安装Python依赖
+pip install -r requirements.txt
+# 启动程序
+python __main__.py
+```
+#### Gitee镜像源
+```bash
+# 克隆仓库
+git clone https://gitee.com/mirence219/littleclock
+# 进入项目目录
+cd littleclock
+# 安装Python依赖
+pip install -r requirements.txt
 # 启动程序
 python __main__.py
 ```
 
 ### 3. PyInstaller 打包
+#### Windows 打包（.exe）
 ```bash
-#Windows打包（.exe）
 pyinstaller --onefile --windowed --name LittleClock --clean --add-data "assets;assets" __main__.py
 ```
+#### Linux 打包（.bin）
 ```bash
-#Linux打包（.bin）
 pyinstaller --onefile --noconsole --name LittleClock.bin --clean --add-data "assets:assets" __main__.py
 ```
 打包产物在 `dist` 文件夹，双击 `LittleClock.exe`/`LittleClock.bin` 即可独立运行。
 
 ---
 
-## 📊 资源占用（v1.1.1 稳定版）
+## 📊 资源占用（v1.1.1）
 |运行平台|启动峰值内存|长期待机内存|
 |---|---|---|
 |Windows|≈45 MB|≈20 MB|

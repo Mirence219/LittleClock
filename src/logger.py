@@ -1,5 +1,8 @@
 import logging
+import os
 from datetime import datetime
+
+from src.__version__ import LOG_DIR
 
 LEVEL_DIC = {
     "DEBUG": 0,
@@ -15,8 +18,43 @@ class classproperty(property):
         return self.fget(owner)
 
 class Logger:
-    '''日志记录器（全局工具类）'''
+    '''日志记录器（全局单例，封装logging模块）'''
     _level = 0  # 默认 DEBUG 级别
+    _LOGGER_NAME = "LittleClock"
+    _logger = None
+    _handler = None
+
+
+    @classmethod
+    def init(cls):
+        '''日志初始化'''
+        cls._log_name = datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + ".log"
+        cls._log_path = os.path.join(LOG_DIR, cls._log_name)
+        cls._logger = logging.getLogger(cls._LOGGER_NAME)
+        cls._logger.setLevel(logging.DEBUG)
+
+
+    @classmethod
+    def init_output(cls):
+        '''初始化日志输出（确认路径可用后调用）'''
+        cls._handler = logging.FileHandler(cls._log_path)
+        cls._logger.addHandler(cls._handler)
+
+        log_str = cls._format_msg(f"[INFO]新建日志文件'{cls._log_path}'")
+        cls._logger.info(log_str)
+        print(log_str)
+
+
+    @classmethod
+    def quit(cls):
+        '''程序退出前写入磁盘'''
+        cls.info("正在关闭日志记录器。。。")
+        if cls._logger is None:
+            return
+        for handler in cls._logger.handlers:
+            handler.flush()
+            handler.close()
+
 
     @classmethod
     def set_level(cls, level_str: str):
@@ -47,6 +85,7 @@ class Logger:
             return
         log_str = cls._format_msg(f"[DEBUG]{msg}", *args, **kwargs)
         print(log_str)
+        cls._logger.debug(log_str)
 
     @classmethod
     def info(cls, msg: str, *args, **kwargs):
@@ -55,6 +94,7 @@ class Logger:
             return
         log_str = cls._format_msg(f"[INFO]{msg}", *args, **kwargs)
         print(log_str)
+        cls._logger.info(log_str)
 
     @classmethod
     def warning(cls, msg: str, *args, **kwargs):
@@ -63,6 +103,7 @@ class Logger:
             return
         log_str = cls._format_msg(f"[WARNING]{msg}", *args, **kwargs)
         print(log_str)
+        cls._logger.warning(log_str)
 
     @classmethod
     def error(cls, msg: str, *args, **kwargs):
@@ -71,6 +112,7 @@ class Logger:
             return
         log_str = cls._format_msg(f"[ERROR]{msg}", *args, **kwargs)
         print(log_str)
+        cls._logger.error(log_str)
 
     @classmethod
     def critical(cls, msg: str, *args, **kwargs):
@@ -79,6 +121,7 @@ class Logger:
             return
         log_str = cls._format_msg(f"[CRITICAL]{msg}", *args, **kwargs)
         print(log_str)
+        cls._logger.critical(log_str)
 
     @classmethod
     def exception(cls, msg: str, *args, **kwargs):
@@ -87,4 +130,5 @@ class Logger:
             return
         log_str = cls._format_msg(f"[EXCEPTION]{msg}", *args, **kwargs)
         print(log_str)
+        cls._logger.exception(log_str)
 

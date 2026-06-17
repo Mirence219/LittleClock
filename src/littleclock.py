@@ -28,8 +28,9 @@ class LittleClock:
         self.controller_thread.start()
 
 
-    def run(self):
-        self.viewer.run()
+    def run(self) -> int:
+        exit_code = self.viewer.run()
+        return exit_code
 
 if __name__ == "__main__":
     app = LittleClock()

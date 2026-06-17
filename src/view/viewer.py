@@ -22,9 +22,9 @@ class Viewer():
         self.signal_sender = ViewerSignalSender()
         self.signal_receiver = ViewerSignalReceiver(self.receive)
 
-    def run(self):
+    def run(self) -> int:
         self.main_window_manager.show()
-        sys.exit(self.app.exec())
+        return self.app.exec()
 
     def connect_signal(self, func):
         '''添加前端信号发送器的订阅者（接收者）'''

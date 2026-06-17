@@ -1,13 +1,14 @@
 from typing import Callable
-from PySide6.QtWidgets import QMainWindow, QSystemTrayIcon, QMenu
-from PySide6.QtCore import QEvent, QObject, QPoint, Qt
-from PySide6.QtGui import QAction, QIcon
+from PySide6.QtWidgets import QMainWindow, QSystemTrayIcon, QMenu, QWidget
+from PySide6.QtCore import QEvent, QObject, QPoint, QRect, Qt
+from PySide6.QtGui import QAction, QFontDatabase, QIcon
 import os
 
-from src.__version__ import resource_path
+from src.__version__ import RESOURCE_DIR
 from src.logger import Logger
 from src.view.py_ui.ui_main_window import Ui_MainWindow
 from src.view.timeboard import TimeboardManager
+from src.icon_font import Icon
 
 class MainWindowManager(QObject):
     '''主窗口对象管理器'''
@@ -23,6 +24,7 @@ class MainWindowManager(QObject):
         self._connect_init()
         self._event_init()
         self._state_init()
+        self._init_all_widget_mouse_track()
 
 
     def _init_main_window(self):
@@ -35,7 +37,12 @@ class MainWindowManager(QObject):
                                    |Qt.Tool)    #工具窗口
         self.window.setAttribute(Qt.WA_TranslucentBackground)   #设置透明窗口
         self.window.installEventFilter(self)    #给主窗口安装事件过滤器，拦截鼠标事件
+        self.window.setMouseTracking(True)
         self.window_flags = self.window.windowFlags()    #获取窗口标记
+
+        self.iconfont_id = QFontDatabase.addApplicationFont("assets/font/iconfont.ttf")
+        self.iconfont = QFontDatabase.applicationFontFamilies(self.iconfont_id)[0]
+
 
     def _init_timeboard(self):
         '''初始化时间面板管理器'''
@@ -45,7 +52,7 @@ class MainWindowManager(QObject):
     def _init_tray(self):
         '''初始化系统托盘'''
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon(os.path.join(resource_path, "assets/LittleClock.ico")))
+        self.tray_icon.setIcon(QIcon(os.path.join(RESOURCE_DIR, "assets/LittleClock.ico")))
         self.tray_icon.setToolTip("LittleClock")
 
         self.tray_menu = QMenu()
@@ -59,8 +66,7 @@ class MainWindowManager(QObject):
         self.tray_menu.addAction(self.act_quit)
         self.tray_icon.setContextMenu(self.tray_menu)
 
-        
-        self.tray_icon.activated.connect(self.show)
+        #self.tray_icon.activated.connect(self.show)
         self.tray_icon.show()
 
 
@@ -76,8 +82,11 @@ class MainWindowManager(QObject):
 
     def _event_init(self):
         '''初始化事件变量'''
-        self._draging = False       #鼠标是否按住
-        self._offset = QPoint(0, 0) #计算偏移坐标
+        self._move_draging = False      #鼠标拖动窗口
+        self._border = 10               #虚拟边框宽度
+        self._stretch_draging = False   #鼠标拉伸窗口
+        self._offset = QPoint(0, 0)     #计算偏移坐标
+        self._start_pos = QPoint(0, 0)  #记录起始点击位置
 
 
     def _state_init(self):
@@ -92,6 +101,15 @@ class MainWindowManager(QObject):
         #self.set_pos(self.left_x, self.top_y)
         #self.set_pos(self.left_x, self.button_y)
         
+
+    def _init_all_widget_mouse_track(self):
+        def loop(parent):
+            for child in parent.findChildren(QWidget):
+                child.setMouseTracking(True)
+                child.installEventFilter(self)
+                loop(child)
+        loop(self.window)
+
         
     def send(self, signal:str, data):
         '''发送信号'''
@@ -106,6 +124,7 @@ class MainWindowManager(QObject):
         self.window.showNormal()
         self.window.raise_()
         self.window.activateWindow()
+
 
     def hide(self):
         '''隐藏窗口'''
@@ -223,24 +242,64 @@ class MainWindowManager(QObject):
 
     def eventFilter(self, obj, event):
         '''鼠标事件拦截，由管理器处理业务'''
-        # 只监听主窗口的事件
+        # 监听主窗口的事件
         if obj == self.window:
-            # 鼠标左键按下
-            if event.type() == QEvent.MouseButtonPress and event.button() == Qt.LeftButton:
-                self._draging = True
-                # 计算偏移：全局鼠标坐标 - 窗口左上角
-                self._offset = event.globalPosition().toPoint() - self.window.frameGeometry().topLeft()
-                Logger.info("鼠标左键点击主窗口")
+            mouse_pos = QPoint(0, 0)
+            window_pos = QPoint(0, 0)
+            
+            # 鼠标位于窗口内
+            if event.type() == QEvent.MouseMove and not (self._move_draging or self._stretch_draging):
+                local_pos = event.position().toPoint()
+                edge = self.get_mouse_edge(local_pos)
+                self.window.setCursor(self.get_edge_curser(edge))
 
-            # 鼠标移动
-            elif event.type() == QEvent.MouseMove and self._draging:
-                # 移动顶层窗口
-                new_pos = event.globalPosition().toPoint() - self._offset
+            # 鼠标左键按下
+            elif event.type() == QEvent.MouseButtonPress and event.button() == Qt.LeftButton:
+                mouse_pos = event.globalPosition().toPoint()
+                window_pos = self.window.frameGeometry().topLeft()
+                local_pos = event.position().toPoint()
+                edge = self.get_mouse_edge(local_pos)
+                if edge is not None:    #按住边缘
+                    self._stretch_draging = edge
+                    self._start_pos = mouse_pos
+                    self._start_rect = self.window.frameGeometry()
+                    Logger.info("鼠标左键点击主窗口边沿")
+                else:
+                    self._move_draging = True
+                    self._offset = mouse_pos - window_pos
+                    Logger.info("鼠标左键点击主窗口")
+
+            # 拖动窗口
+            elif event.type() == QEvent.MouseMove and self._move_draging:
+                mouse_pos = event.globalPosition().toPoint()
+                new_pos = mouse_pos - self._offset
                 self.window.move(new_pos)
+
+            # 拉伸窗口
+            elif event.type() == QEvent.MouseMove and self._stretch_draging:
+                mouse_pos = event.globalPosition().toPoint()
+                relative_pos = mouse_pos - self._start_pos
+                dx = relative_pos.x()
+                dy = relative_pos.y()
+                rect = QRect(self._start_rect)
+                tag = self._stretch_draging
+                if "left" in tag:
+                    rect.setLeft(rect.left() + dx)
+                if "right" in tag:
+                    rect.setRight(rect.right() + dx)
+                if "top" in tag:
+                    rect.setTop(rect.top() + dy)
+                if "bottom" in tag:
+                    rect.setBottom(rect.bottom() + dy)
+
+                self.window.setGeometry(rect)
+
+
 
             # 鼠标左键释放
             elif event.type() == QEvent.MouseButtonRelease and event.button() == Qt.LeftButton:
-                self._draging = False
+                self._move_draging = False
+                self._stretch_draging = None
                 Logger.info("鼠标左键松开主窗口")
 
         # 必须返回，继续传递原有事件（保证按钮正常点击）
@@ -265,8 +324,10 @@ class MainWindowManager(QObject):
         Logger.info("点击置顶按钮")
         if not self.is_tophint:
             self.tophint()
+            self.ui.bntTophint.setText(Icon.TOPHINT_ON)
         else:
             self.untophint()
+            self.ui.bntTophint.setText(Icon.TOPHINT_OFF)
             
 
     def on_bnt1_clicked(self):
@@ -292,4 +353,54 @@ class MainWindowManager(QObject):
         Logger.info("点击按钮4")
         self.send("按钮4", None)
 
+#========= 工具封装 ===========
+    def get_mouse_edge(self, local_p: QPoint) -> str | None:
+        """
+        判断鼠标在窗口哪个边缘/四角
+        :local_p: event.position().toPoint() 窗口局部坐标
+        :return: None(窗口内部) / top_left / top / top_right / left / right / bottom_left / bottom / bottom_right
+        """
+        self.window_height 
+        lx = local_p.x()
+        ly = local_p.y()
+        edge = self._border
 
+        # 四角优先判断（同时满足两条边）
+        on_top = ly <= edge
+        on_bottom = ly >= self.window_height - edge
+        on_left = lx <= edge
+        on_right = lx >= self.window_width - edge
+
+        if on_top and on_left:
+            return "top_left"
+        if on_top and on_right:
+            return "top_right"
+        if on_bottom and on_left:
+            return "bottom_left"
+        if on_bottom and on_right:
+            return "bottom_right"
+        # 四条单边
+        if on_top:
+            return "top"
+        if on_bottom:
+            return "bottom"
+        if on_left:
+            return "left"
+        if on_right:
+            return "right"
+        # 窗口中间区域
+        return None
+
+    
+    def get_edge_curser(self, edge: str):
+        match edge:
+            case "left" | "right":
+                return Qt.SizeHorCursor    # ↔ 左右拉伸
+            case "top" | "bottom":
+                return Qt.SizeVerCursor    # ↕ 上下拉伸
+            case "top_left" | "bottom_right":
+                return Qt.SizeFDiagCursor  # \ 斜向拉伸
+            case "top_right" | "bottom_left":
+                return Qt.SizeBDiagCursor  # / 斜向拉伸
+            case _:
+                return Qt.ArrowCursor      # 默认普通箭头

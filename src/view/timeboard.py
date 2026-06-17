@@ -32,6 +32,7 @@ class Timeboard(QWidget):
                             {"pos": {1, 2, 3, 4, 5, 6, 7}}]
         self._full = True
         self._mode = "digital"
+        self._num_count = 5
 
 
     def _init_style(self):
@@ -58,11 +59,11 @@ class Timeboard(QWidget):
 
         rect = self.rect()
         canvas_w = rect.width()
-        canvas_h = rect.height()
+        canvas_h = min(rect.height(), canvas_w // self._num_count * 2)
 
         # 2. 动态计算数码管尺寸（按画布比例）
         global seg_h
-        seg_h = canvas_h * 0.6       # 数字高度 = 画布高度70%
+        seg_h = canvas_h * 0.55       # 数字高度 = 画布高度60%
         seg_w = seg_h * 0.6                 # 数字宽度按高度比例
         gap = seg_h * 0.12                  # 段间隙自适应
         digit_gap = seg_w * 0.7             # 数字之间间距
@@ -73,7 +74,7 @@ class Timeboard(QWidget):
         total_w = seg_w * 4 + digit_gap * 2 + colon_gap * 2
         start_x = (canvas_w - total_w) / 2
         # 垂直居中
-        start_y = (canvas_h - seg_h) / 2
+        start_y = (rect.height() - seg_h) / 2
 
         # 依次绘制 8 8 : 8 8
         # 第1个8

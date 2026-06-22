@@ -40,7 +40,7 @@ class MainWindowManager(QObject):
         self.window.setMouseTracking(True)
         self.window_flags = self.window.windowFlags()    #获取窗口标记
 
-        self.iconfont_id = QFontDatabase.addApplicationFont("assets/font/iconfont.ttf")
+        self.iconfont_id = QFontDatabase.addApplicationFont(os.path.join(RESOURCE_DIR, "assets/font/iconfont.ttf"))
         self.iconfont = QFontDatabase.applicationFontFamilies(self.iconfont_id)[0]
 
 
@@ -72,12 +72,12 @@ class MainWindowManager(QObject):
 
     def _connect_init(self):
         '''绑定按键事件'''
-        self.ui.bntClose.clicked.connect(self.on_bntClose_clicked)
-        self.ui.bntTophint.clicked.connect(self.on_bntTophint_clicked)
-        self.ui.bnt1.clicked.connect(self.on_bnt1_clicked)
-        self.ui.bnt2.clicked.connect(self.on_bnt2_clicked)
-        self.ui.bnt3.clicked.connect(self.on_bnt3_clicked)
-        self.ui.bnt4.clicked.connect(self.on_bnt4_clicked)
+        self.ui.btnClose.clicked.connect(self.on_btnClose_clicked)
+        self.ui.btnTophint.clicked.connect(self.on_btnTophint_clicked)
+        self.ui.btn1.clicked.connect(self.on_btn1_clicked)
+        self.ui.btn2.clicked.connect(self.on_btn2_clicked)
+        self.ui.btn3.clicked.connect(self.on_btn3_clicked)
+        self.ui.btn4.clicked.connect(self.on_btn4_clicked)
 
 
     def _event_init(self):
@@ -91,15 +91,10 @@ class MainWindowManager(QObject):
 
     def _state_init(self):
         '''屏幕与主窗口状态初始化'''
-        self.screen_size = self.window.screen().availableGeometry()
-        self.left_x = 0
-        self.right_x = self.screen_size.width() - self.window_width
-        self.top_y = 0
-        self.button_y = self.screen_size.height() - self.window_height
-        self.set_pos(self.right_x, self.top_y)  #默认右上角
-        #self.set_pos(self.right_x, self.button_y)
-        #self.set_pos(self.left_x, self.top_y)
-        #self.set_pos(self.left_x, self.button_y)
+        screen_available = self.window.screen().availableGeometry()
+        win_frame = self.window.frameGeometry()
+        win_frame.moveTopRight(screen_available.topRight())
+        self.window.setGeometry(win_frame)
         
 
     def _init_all_widget_mouse_track(self):
@@ -281,16 +276,18 @@ class MainWindowManager(QObject):
                 relative_pos = mouse_pos - self._start_pos
                 dx = relative_pos.x()
                 dy = relative_pos.y()
+                min_width = self.window.minimumWidth()
+                min_height = self.window.minimumHeight()
                 rect = QRect(self._start_rect)
                 tag = self._stretch_draging
                 if "left" in tag:
-                    rect.setLeft(rect.left() + dx)
+                    rect.setLeft(rect.left() + min(dx, rect.width() - min_width))   #不等式还在追我 
                 if "right" in tag:
-                    rect.setRight(rect.right() + dx)
+                    rect.setRight(rect.right() + max(dx, min_width - rect.width()))
                 if "top" in tag:
-                    rect.setTop(rect.top() + dy)
+                    rect.setTop(rect.top() + min(dy, rect.height() - min_height))
                 if "bottom" in tag:
-                    rect.setBottom(rect.bottom() + dy)
+                    rect.setBottom(rect.bottom() + max(dy, min_height - rect.height()))
 
                 self.window.setGeometry(rect)
 
@@ -306,7 +303,7 @@ class MainWindowManager(QObject):
         return False
 
 
-    def on_bntClose_clicked(self):
+    def on_btnClose_clicked(self):
         '''关闭窗口（最小化到系统托盘）'''
         Logger.info("点击关闭窗口按钮（最小化至系统托盘）")
         self.hide()
@@ -319,36 +316,36 @@ class MainWindowManager(QObject):
         )
 
 
-    def on_bntTophint_clicked(self):
+    def on_btnTophint_clicked(self):
         '''置顶窗口'''
         Logger.info("点击置顶按钮")
         if not self.is_tophint:
             self.tophint()
-            self.ui.bntTophint.setText(Icon.TOPHINT_ON)
+            self.ui.btnTophint.setText(Icon.TOPHINT_ON)
         else:
             self.untophint()
-            self.ui.bntTophint.setText(Icon.TOPHINT_OFF)
+            self.ui.btnTophint.setText(Icon.TOPHINT_OFF)
             
 
-    def on_bnt1_clicked(self):
+    def on_btn1_clicked(self):
         '''按钮1点击事件'''
         Logger.info("点击按钮1")
         self.send("按钮1", None)
 
 
-    def on_bnt2_clicked(self):
+    def on_btn2_clicked(self):
         '''按钮2点击事件'''
         Logger.info("点击按钮2")
         self.send("按钮2", None)
 
 
-    def on_bnt3_clicked(self):
+    def on_btn3_clicked(self):
         '''按钮3点击事件'''
         Logger.info("点击按钮3")
         self.send("按钮3", None)
 
 
-    def on_bnt4_clicked(self):
+    def on_btn4_clicked(self):
         '''按钮4点击事件'''
         Logger.info("点击按钮4")
         self.send("按钮4", None)

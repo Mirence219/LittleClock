@@ -26,6 +26,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\app_sign.py" />
+    <Compile Include="src\constants.py" />
     <Compile Include="src\icon_font.py" />
     <Compile Include="src\control\controller.py" />
     <Compile Include="src\control\controller_mediater.py" />
@@ -56,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
+    <Folder Include="assets\font\" />
     <Folder Include="src\control\" />
     <Folder Include="src\" />
     <Folder Include="src\control\renderer\" />
@@ -68,6 +71,7 @@
     <Folder Include="assets\qt_ui\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\font\iconfont.ttf" />
     <Content Include="assets\LittleClock.ico" />
     <Content Include="LittleClock UML.png" />
     <Content Include="README.md" />

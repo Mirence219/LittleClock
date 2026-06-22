@@ -41,6 +41,6 @@ if OS_PLATFORM == "Windows":
 elif OS_PLATFORM == "Linux":
     USER_APP_DATA_DIR = os.getenv("XDG_DATA_HOME", os.path.expanduser("~/.local/share"))
 
-APP_DATA_DIR = os.path.join(USER_APP_DATA_DIR, APP_DATA_DIR_NAME) #程序数据目录
+APP_DATA_DIR = os.path.join(USER_APP_DATA_DIR, APP_DATA_DIR_NAME)   #程序数据目录
 LOG_DIR = os.path.join(APP_DATA_DIR, LOG_DIR_NAME)                  #日志目录
 LOCK_PATH = os.path.join(APP_DATA_DIR, LOCK_NAME)                   #锁文件目录                                              #锁文件目录

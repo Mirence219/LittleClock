@@ -63,12 +63,14 @@ class Timeboard(QWidget):
 
         # 2. 动态计算数码管尺寸（按画布比例）
         global seg_h
-        seg_h = canvas_h * 0.55       # 数字高度 = 画布高度60%
+        seg_h = canvas_h * 0.55             # 数字高度 = 画布高度60%
         seg_w = seg_h * 0.6                 # 数字宽度按高度比例
         gap = seg_h * 0.12                  # 段间隙自适应
         digit_gap = seg_w * 0.7             # 数字之间间距
         colon_gap = seg_w * 0.6             # 数字与冒号间距
         dot_r = seg_h * 0.08                # 冒号圆点大小
+        pen_width = seg_h / 15
+        self.pen_style.setWidthF(pen_width)
 
         # 3. 计算整体总宽度，实现整体水平居中
         total_w = seg_w * 4 + digit_gap * 2 + colon_gap * 2

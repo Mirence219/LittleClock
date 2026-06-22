@@ -46,7 +46,7 @@ class Logger:
 
 
     @classmethod
-    def quit(cls):
+    def shutdown(cls):
         '''程序退出前写入磁盘'''
         cls.info("正在关闭日志记录器。。。")
         if cls._logger is None:

@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(210, 222)
+        MainWindow.resize(268, 221)
         MainWindow.setStyleSheet(u"background-color: rgba(80, 80, 80, 160);\n"
 "border-radius: 10px;\n"
 "color: white")
@@ -74,7 +74,20 @@ class Ui_MainWindow(object):
         self.frmTitleBtn.setSizePolicy(sizePolicy2)
         self.frmTitleBtn.setMaximumSize(QSize(16777215, 50))
         self.frmTitleBtn.setToolTipDuration(-1)
-        self.frmTitleBtn.setStyleSheet(u"background: rgba(0, 0, 0, 0);")
+        self.frmTitleBtn.setStyleSheet(u"#frmTitleBtn {\n"
+"	background: rgba(0, 0, 0, 0);\n"
+"}\n"
+"\n"
+"#frmTitleBtn QPushButton {\n"
+"	background: rgba(0, 0, 0, 0);\n"
+"	font: 20pt \"iconfont\";\n"
+"	color: rgba(255, 255, 255, 255);\n"
+"	padding-left: 5px;\n"
+"}\n"
+"\n"
+"#frmTitleBtn QPushButton:hover {\n"
+"    color: rgba(255,255,255,128);\n"
+"}")
         self.frmTitleBtn.setFrameShape(QFrame.Shape.StyledPanel)
         self.frmTitleBtn.setFrameShadow(QFrame.Shadow.Raised)
         self.frmTitleBtn.setLineWidth(0)
@@ -82,55 +95,34 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.bntSetting = QPushButton(self.frmTitleBtn)
-        self.bntSetting.setObjectName(u"bntSetting")
-        sizePolicy2.setHeightForWidth(self.bntSetting.sizePolicy().hasHeightForWidth())
-        self.bntSetting.setSizePolicy(sizePolicy2)
-        self.bntSetting.setMaximumSize(QSize(16777215, 30))
-        self.bntSetting.setStyleSheet(u"background: rgba(0, 0, 0, 0);\n"
-"font: 20pt \"iconfont\";\n"
-"color: rgba(255, 255, 255, 255);\n"
-"padding-left: 5px;\n"
-"\n"
-"bntSetting::hover {\n"
-"    background: rgba(255,255,255,128);\n"
-"}")
+        self.btnSetting = QPushButton(self.frmTitleBtn)
+        self.btnSetting.setObjectName(u"btnSetting")
+        sizePolicy2.setHeightForWidth(self.btnSetting.sizePolicy().hasHeightForWidth())
+        self.btnSetting.setSizePolicy(sizePolicy2)
+        self.btnSetting.setMaximumSize(QSize(16777215, 30))
+        self.btnSetting.setStyleSheet(u"")
 
-        self.horizontalLayout_2.addWidget(self.bntSetting)
+        self.horizontalLayout_2.addWidget(self.btnSetting)
 
-        self.bntTophint = QPushButton(self.frmTitleBtn)
-        self.bntTophint.setObjectName(u"bntTophint")
-        sizePolicy2.setHeightForWidth(self.bntTophint.sizePolicy().hasHeightForWidth())
-        self.bntTophint.setSizePolicy(sizePolicy2)
-        self.bntTophint.setMaximumSize(QSize(16777215, 30))
-        self.bntTophint.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.bntTophint.setStyleSheet(u"background: rgba(0, 0, 0, 0);\n"
-"font: 20pt \"iconfont\";\n"
-"color: rgba(255, 255, 255, 255);\n"
-"padding-left: 5px;\n"
-"\n"
-"bntTophint::hover {\n"
-"    background: rgba(255,255,255,128);\n"
-"}")
+        self.btnTophint = QPushButton(self.frmTitleBtn)
+        self.btnTophint.setObjectName(u"btnTophint")
+        sizePolicy2.setHeightForWidth(self.btnTophint.sizePolicy().hasHeightForWidth())
+        self.btnTophint.setSizePolicy(sizePolicy2)
+        self.btnTophint.setMaximumSize(QSize(16777215, 30))
+        self.btnTophint.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btnTophint.setStyleSheet(u"")
 
-        self.horizontalLayout_2.addWidget(self.bntTophint)
+        self.horizontalLayout_2.addWidget(self.btnTophint)
 
-        self.bntClose = QPushButton(self.frmTitleBtn)
-        self.bntClose.setObjectName(u"bntClose")
-        sizePolicy2.setHeightForWidth(self.bntClose.sizePolicy().hasHeightForWidth())
-        self.bntClose.setSizePolicy(sizePolicy2)
-        self.bntClose.setMaximumSize(QSize(16777215, 30))
-        self.bntClose.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.bntClose.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);\n"
-"font: 20pt \"iconfont\";\n"
-"color: rgba(255, 255, 255, 255);\n"
-"padding-left: 5px;\n"
-"\n"
-"bntClose::hover {\n"
-"    color: rgba(255,255,255,128);\n"
-"}")
+        self.btnClose = QPushButton(self.frmTitleBtn)
+        self.btnClose.setObjectName(u"btnClose")
+        sizePolicy2.setHeightForWidth(self.btnClose.sizePolicy().hasHeightForWidth())
+        self.btnClose.setSizePolicy(sizePolicy2)
+        self.btnClose.setMaximumSize(QSize(16777215, 30))
+        self.btnClose.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.btnClose.setStyleSheet(u"")
 
-        self.horizontalLayout_2.addWidget(self.bntClose)
+        self.horizontalLayout_2.addWidget(self.btnClose)
 
 
         self.horizontalLayout.addWidget(self.frmTitleBtn, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignVCenter)
@@ -145,66 +137,87 @@ class Ui_MainWindow(object):
         self.wgtTimeboard = Timeboard(self.centralWidget)
         self.wgtTimeboard.setObjectName(u"wgtTimeboard")
         self.wgtTimeboard.setMinimumSize(QSize(0, 100))
-        self.wgtTimeboard.setStyleSheet(u"border: 1px solid #666; \n"
-"border-radius: 8px;\n"
-"background: rgba(80, 80, 80, 160);")
+        self.wgtTimeboard.setStyleSheet(u"#wgtTimeboard {\n"
+"	border: 2px solid #666; \n"
+"	border-radius: 8px;\n"
+"	background: rgba(255, 255, 255, 0)\n"
+"}")
+        self.horizontalLayout_3 = QHBoxLayout(self.wgtTimeboard)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
 
         self.verticalLayout_2.addWidget(self.wgtTimeboard)
 
 
         self.verticalLayout.addLayout(self.verticalLayout_2)
 
-        self.frame = QFrame(self.centralWidget)
-        self.frame.setObjectName(u"frame")
-        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy)
-        self.frame.setStyleSheet(u"background: rgba(0, 0, 0, 0);")
-        self.gridLayout = QGridLayout(self.frame)
+        self.lbLine = QLabel(self.centralWidget)
+        self.lbLine.setObjectName(u"lbLine")
+        self.lbLine.setMaximumSize(QSize(16777215, 1))
+        self.lbLine.setStyleSheet(u"background-color: #666")
+
+        self.verticalLayout.addWidget(self.lbLine)
+
+        self.frmControll = QFrame(self.centralWidget)
+        self.frmControll.setObjectName(u"frmControll")
+        sizePolicy.setHeightForWidth(self.frmControll.sizePolicy().hasHeightForWidth())
+        self.frmControll.setSizePolicy(sizePolicy)
+        self.frmControll.setStyleSheet(u"#frmControll {\n"
+"	background: rgba(0, 0, 0, 0);\n"
+"}\n"
+"\n"
+"#frmControll QPushButton {\n"
+"	background-color: rgba(80, 80, 80, 160);\n"
+"}\n"
+"\n"
+"#frmControll QPushButton:hover{\n"
+"	background-color: rgba(40, 40, 40, 160);\n"
+"}")
+        self.gridLayout = QGridLayout(self.frmControll)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(1, -1, 1, -1)
-        self.bnt3 = QPushButton(self.frame)
-        self.bnt3.setObjectName(u"bnt3")
-        self.bnt3.setMinimumSize(QSize(0, 25))
-        self.bnt3.setStyleSheet(u"background-color: rgba(80, 80, 80, 160);")
+        self.btn3 = QPushButton(self.frmControll)
+        self.btn3.setObjectName(u"btn3")
+        self.btn3.setMinimumSize(QSize(0, 25))
+        self.btn3.setStyleSheet(u"")
 
-        self.gridLayout.addWidget(self.bnt3, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.btn3, 0, 2, 1, 1)
 
-        self.bnt2 = QPushButton(self.frame)
-        self.bnt2.setObjectName(u"bnt2")
-        self.bnt2.setMinimumSize(QSize(0, 25))
-        self.bnt2.setStyleSheet(u"background-color: rgba(80, 80, 80, 160);")
+        self.btn2 = QPushButton(self.frmControll)
+        self.btn2.setObjectName(u"btn2")
+        self.btn2.setMinimumSize(QSize(0, 25))
+        self.btn2.setStyleSheet(u"")
 
-        self.gridLayout.addWidget(self.bnt2, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.btn2, 0, 1, 1, 1)
 
-        self.bnt1 = QPushButton(self.frame)
-        self.bnt1.setObjectName(u"bnt1")
+        self.btn1 = QPushButton(self.frmControll)
+        self.btn1.setObjectName(u"btn1")
         sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.bnt1.sizePolicy().hasHeightForWidth())
-        self.bnt1.setSizePolicy(sizePolicy3)
-        self.bnt1.setMinimumSize(QSize(0, 25))
-        self.bnt1.setStyleSheet(u"background-color: rgba(80, 80, 80, 160);")
+        sizePolicy3.setHeightForWidth(self.btn1.sizePolicy().hasHeightForWidth())
+        self.btn1.setSizePolicy(sizePolicy3)
+        self.btn1.setMinimumSize(QSize(0, 25))
+        self.btn1.setStyleSheet(u"")
 
-        self.gridLayout.addWidget(self.bnt1, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.btn1, 0, 0, 1, 1)
 
-        self.bnt4 = QPushButton(self.frame)
-        self.bnt4.setObjectName(u"bnt4")
-        self.bnt4.setMinimumSize(QSize(0, 25))
-        self.bnt4.setStyleSheet(u"background-color: rgba(80, 80, 80, 160);")
+        self.btn4 = QPushButton(self.frmControll)
+        self.btn4.setObjectName(u"btn4")
+        self.btn4.setMinimumSize(QSize(0, 25))
+        self.btn4.setStyleSheet(u"")
 
-        self.gridLayout.addWidget(self.bnt4, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.btn4, 1, 0, 1, 1)
 
 
-        self.verticalLayout.addWidget(self.frame)
+        self.verticalLayout.addWidget(self.frmControll)
 
         MainWindow.setCentralWidget(self.centralWidget)
-        QWidget.setTabOrder(self.bnt1, self.bnt2)
-        QWidget.setTabOrder(self.bnt2, self.bnt3)
-        QWidget.setTabOrder(self.bnt3, self.bnt4)
-        QWidget.setTabOrder(self.bnt4, self.bntSetting)
-        QWidget.setTabOrder(self.bntSetting, self.bntTophint)
-        QWidget.setTabOrder(self.bntTophint, self.bntClose)
+        QWidget.setTabOrder(self.btn1, self.btn2)
+        QWidget.setTabOrder(self.btn2, self.btn3)
+        QWidget.setTabOrder(self.btn3, self.btn4)
+        QWidget.setTabOrder(self.btn4, self.btnSetting)
+        QWidget.setTabOrder(self.btnSetting, self.btnTophint)
+        QWidget.setTabOrder(self.btnTophint, self.btnClose)
 
         self.retranslateUi(MainWindow)
 
@@ -214,12 +227,13 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"LittleClock", None))
         self.lbTitle.setText(QCoreApplication.translate("MainWindow", u"LittleClock", None))
-        self.bntSetting.setText(QCoreApplication.translate("MainWindow", u"\ue663", None))
-        self.bntTophint.setText(QCoreApplication.translate("MainWindow", u"\ue60f", None))
-        self.bntClose.setText(QCoreApplication.translate("MainWindow", u"\ue6e8", None))
-        self.bnt3.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e3", None))
-        self.bnt2.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e2", None))
-        self.bnt1.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e1", None))
-        self.bnt4.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e4", None))
+        self.btnSetting.setText(QCoreApplication.translate("MainWindow", u"\ue663", None))
+        self.btnTophint.setText(QCoreApplication.translate("MainWindow", u"\ue60f", None))
+        self.btnClose.setText(QCoreApplication.translate("MainWindow", u"\ue6e8", None))
+        self.lbLine.setText("")
+        self.btn3.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e3", None))
+        self.btn2.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e2", None))
+        self.btn1.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e1", None))
+        self.btn4.setText(QCoreApplication.translate("MainWindow", u"\u6309\u952e4", None))
     # retranslateUi
 

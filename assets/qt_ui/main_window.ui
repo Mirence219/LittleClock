@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>210</width>
-    <height>222</height>
+    <width>268</width>
+    <height>221</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,7 +100,20 @@ background-color: rgba(80, 80, 80, 160);</string>
           <number>-1</number>
          </property>
          <property name="styleSheet">
-          <string notr="true">background: rgba(0, 0, 0, 0);</string>
+          <string notr="true">#frmTitleBtn {
+	background: rgba(0, 0, 0, 0);
+}
+
+#frmTitleBtn QPushButton {
+	background: rgba(0, 0, 0, 0);
+	font: 20pt &quot;iconfont&quot;;
+	color: rgba(255, 255, 255, 255);
+	padding-left: 5px;
+}
+
+#frmTitleBtn QPushButton:hover {
+    color: rgba(255,255,255,128);
+}</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::Shape::StyledPanel</enum>
@@ -128,7 +141,7 @@ background-color: rgba(80, 80, 80, 160);</string>
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="bntSetting">
+           <widget class="QPushButton" name="btnSetting">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -142,14 +155,7 @@ background-color: rgba(80, 80, 80, 160);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background: rgba(0, 0, 0, 0);
-font: 20pt &quot;iconfont&quot;;
-color: rgba(255, 255, 255, 255);
-padding-left: 5px;
-
-bntSetting::hover {
-    background: rgba(255,255,255,128);
-}</string>
+             <string notr="true"/>
             </property>
             <property name="text">
              <string></string>
@@ -157,7 +163,7 @@ bntSetting::hover {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="bntTophint">
+           <widget class="QPushButton" name="btnTophint">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -174,14 +180,7 @@ bntSetting::hover {
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background: rgba(0, 0, 0, 0);
-font: 20pt &quot;iconfont&quot;;
-color: rgba(255, 255, 255, 255);
-padding-left: 5px;
-
-bntTophint::hover {
-    background: rgba(255,255,255,128);
-}</string>
+             <string notr="true"/>
             </property>
             <property name="text">
              <string></string>
@@ -189,7 +188,7 @@ bntTophint::hover {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="bntClose">
+           <widget class="QPushButton" name="btnClose">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -206,14 +205,7 @@ bntTophint::hover {
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(0, 0, 0, 0);
-font: 20pt &quot;iconfont&quot;;
-color: rgba(255, 255, 255, 255);
-padding-left: 5px;
-
-bntClose::hover {
-    color: rgba(255,255,255,128);
-}</string>
+             <string notr="true"/>
             </property>
             <property name="text">
              <string></string>
@@ -240,16 +232,35 @@ bntClose::hover {
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 1px solid #666; 
-border-radius: 8px;
-background: rgba(80, 80, 80, 160);</string>
+         <string notr="true">#wgtTimeboard {
+	border: 2px solid #666; 
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0)
+}</string>
         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3"/>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QFrame" name="">
+     <widget class="QLabel" name="lbLine">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>1</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #666</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frmControll">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -257,7 +268,17 @@ background: rgba(80, 80, 80, 160);</string>
        </sizepolicy>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: rgba(0, 0, 0, 0);</string>
+       <string notr="true">#frmControll {
+	background: rgba(0, 0, 0, 0);
+}
+
+#frmControll QPushButton {
+	background-color: rgba(80, 80, 80, 160);
+}
+
+#frmControll QPushButton:hover{
+	background-color: rgba(40, 40, 40, 160);
+}</string>
       </property>
       <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0">
        <property name="leftMargin">
@@ -267,7 +288,7 @@ background: rgba(80, 80, 80, 160);</string>
         <number>1</number>
        </property>
        <item row="0" column="2">
-        <widget class="QPushButton" name="bnt3">
+        <widget class="QPushButton" name="btn3">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -275,7 +296,7 @@ background: rgba(80, 80, 80, 160);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(80, 80, 80, 160);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>按键3</string>
@@ -283,7 +304,7 @@ background: rgba(80, 80, 80, 160);</string>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="bnt2">
+        <widget class="QPushButton" name="btn2">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -291,7 +312,7 @@ background: rgba(80, 80, 80, 160);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(80, 80, 80, 160);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>按键2</string>
@@ -299,7 +320,7 @@ background: rgba(80, 80, 80, 160);</string>
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QPushButton" name="bnt1">
+        <widget class="QPushButton" name="btn1">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -313,7 +334,7 @@ background: rgba(80, 80, 80, 160);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(80, 80, 80, 160);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>按键1</string>
@@ -321,7 +342,7 @@ background: rgba(80, 80, 80, 160);</string>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QPushButton" name="bnt4">
+        <widget class="QPushButton" name="btn4">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -329,7 +350,7 @@ background: rgba(80, 80, 80, 160);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(80, 80, 80, 160);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>按键4</string>
@@ -351,13 +372,13 @@ background: rgba(80, 80, 80, 160);</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>bnt1</tabstop>
-  <tabstop>bnt2</tabstop>
-  <tabstop>bnt3</tabstop>
-  <tabstop>bnt4</tabstop>
-  <tabstop>bntSetting</tabstop>
-  <tabstop>bntTophint</tabstop>
-  <tabstop>bntClose</tabstop>
+  <tabstop>btn1</tabstop>
+  <tabstop>btn2</tabstop>
+  <tabstop>btn3</tabstop>
+  <tabstop>btn4</tabstop>
+  <tabstop>btnSetting</tabstop>
+  <tabstop>btnTophint</tabstop>
+  <tabstop>btnClose</tabstop>
  </tabstops>
  <resources/>
  <connections/>

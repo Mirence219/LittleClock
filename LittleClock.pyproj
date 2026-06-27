@@ -42,6 +42,7 @@
     <Compile Include="src\control\time_manager\__init__.py" />
     <Compile Include="src\control\__init__.py" />
     <Compile Include="src\logger.py" />
+    <Compile Include="src\ipc.py" />
     <Compile Include="src\ui2py.py" />
     <Compile Include="src\view\main_window.py" />
     <Compile Include="src\view\py_ui\ui_main_window.py" />
@@ -53,12 +54,14 @@
     <Compile Include="src\view\viewer.py" />
     <Compile Include="src\view\__init__.py" />
     <Compile Include="src\__version__.py" />
+    <Compile Include="test\ipc_test.py" />
     <Compile Include="__main__.py" />
     <Compile Include="src\littleclock.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
     <Folder Include="assets\font\" />
+    <Folder Include="test\" />
     <Folder Include="src\control\" />
     <Folder Include="src\" />
     <Folder Include="src\control\renderer\" />

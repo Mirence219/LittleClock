@@ -1,6 +1,3 @@
-
-from posixpath import isabs
-
 from PySide6.QtCore import QSharedMemory
 
 from src.logger import Logger
@@ -11,7 +8,7 @@ _shm = None
 
 
 def check_repeat_start() -> bool:
-    '''防多开检测'''
+    '''防多开检测，同时呼出已存在进程'''
     global _shm
 
     temp_shm = QSharedMemory(SHM_NAME)
@@ -35,6 +32,12 @@ def check_repeat_start() -> bool:
     Logger.info("已创建共享内存区")
 
     return True
+
+
+def show_app():
+    '''呼出已存在进程'''
+
+
 
 def shutdown():
     '''程序退出'''

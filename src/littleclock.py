@@ -32,6 +32,14 @@ class LittleClock:
         exit_code = self.viewer.run()
         return exit_code
 
+    def get_viewer_signal(self):
+        '''返回前端信号接收器（用于建立连接）'''
+        return self.viewer.signal_receiver.receive_from_out
+
+    def get_controller_signal(self):
+        '''返回后端信号接收器（用于建立连接）'''
+        return self.controller.signal_receiver.receive
+
 if __name__ == "__main__":
     app = LittleClock()
     print("[TEST]信号发送测试")

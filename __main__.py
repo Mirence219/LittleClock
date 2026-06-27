@@ -9,6 +9,7 @@ from src.littleclock import LittleClock
 from src.__version__ import *
 from src.logger import Logger
 from src import app_sign
+from src.ipc import IPCServer, IPCSocket
 
 def init():
     '''LittleClock初始化'''
@@ -57,8 +58,16 @@ if __name__ == "__main__":
     exit_code = 2
 
     if app_sign.check_repeat_start():
+        ipc_server = IPCServer()
         application = LittleClock()
+        ipc_server.connect(application.get_viewer_signal())
         exit_code = application.run()
+
+        ipc_server.shutdown()
+    else:
+        ipc_socket = IPCSocket()
+        ipc_socket.send()
+        ipc_socket.shutdown()
 
     app_sign.shutdown()
     Logger.info("程序退出码：{}", exit_code)

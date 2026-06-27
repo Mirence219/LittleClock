@@ -37,9 +37,12 @@ class Viewer():
             self.update_time(data)
             return
 
-        Logger.debug("前端主控接收到转发 信号:{}, 内容:{}", signal, data)
+        Logger.info("前端主控接收到转发 信号:{}, 内容:{}", signal, data)
         if signal == "finish-shutdown":
             self.main_window_manager.confirm_close()
+        
+        elif signal == "show-window":
+            self.main_window_manager.show()
 
 
     def update_time(self, render_data:list):

@@ -115,6 +115,7 @@ class MainWindowManager(QObject):
 
     def show(self):
         '''显示窗口'''
+        Logger.info("显示窗口")
         self.window.setWindowState(Qt.WindowNoState)
         self.window.showNormal()
         self.window.raise_()
@@ -401,3 +402,4 @@ class MainWindowManager(QObject):
                 return Qt.SizeBDiagCursor  # / 斜向拉伸
             case _:
                 return Qt.ArrowCursor      # 默认普通箭头
+
